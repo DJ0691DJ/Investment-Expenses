@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ephesians 2:8 | Grace & Faith Reflection</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#0a0f1d',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155'
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            300: '#fde68a',
+                            glow: '#d4af37'
+                        },
+                        cream: {
+                            50: '#fcfbf7',
+                            100: '#f7f5ed',
+                            200: '#eee8d5',
+                            300: '#e2d9bc'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-float {
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+        .animate-glow {
+            animation: pulseGlow 6s ease-in-out infinite;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-navy-950 text-cream-100 font-sans antialiased selection:bg-gold-500 selection:text-navy-950 min-h-screen relative overflow-x-hidden">
+
+    <!-- Ambient Background Orbs -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-gold-500 rounded-full mix-blend-screen filter blur-[120px] animate-glow"></div>
+        <div class="absolute top-1/2 -right-40 w-96 h-96 bg-blue-600 rounded-full mix-blend-screen filter blur-[140px] animate-glow" style="animation-delay: 2s;"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-amber-600 rounded-full mix-blend-screen filter blur-[130px] animate-glow" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-card border-b border-gold-500/10 px-6 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 font-bold shadow-lg shadow-gold-500/20">
+                    <svg class="w-5 h-5 text-navy-950 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.5 2h3v5h5v3h-5v12h-3V10h-5V7h5V2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-serif text-xl font-bold tracking-wide text-gold-300">BGTF Ephesians 2:8</span>
+                    <span class="block text-xs text-cream-300/70 tracking-widest uppercase">By Grace Through Faith</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-cream-200">
+                <a href="#devotional" class="hover:text-gold-400 transition-colors">What is this?</a>
+                <a href="#whatnext" class="hover:text-gold-400 transition-colors">What next?</a>
+                <a href="#journal" class="hover:text-gold-400 transition-colors">Journal</a>
+            </nav>
+
+            <div class="flex items-center space-x-3"></div>
+        </div>
+    </header>
+
+    <!-- Hero / Main Scripture Section -->
+    <section id="verse" class="relative z-10 pt-20 pb-16 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold mb-6">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>The Core of the Gospel</span>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-cream-50 mb-8 leading-tight">
+                "For it is by <span class="text-gold-400 underline decoration-gold-500/40 decoration-wavy underline-offset-8">grace</span> you have been saved, through <span class="text-gold-400 underline decoration-gold-500/40 decoration-wavy underline-offset-8">faith</span>..."
+            </h1>
+
+            <p class="font-serif italic text-xl sm:text-2xl text-cream-200/90 max-w-2xl mx-auto mb-10">
+                "...and this is not from yourselves, it is the gift of God—not by works, so that no one can boast."
+            </p>
+
+            <div class="text-sm font-semibold tracking-wider text-gold-500 uppercase">
+                — Ephesians 2:8-9 (NIV)
+            </div>
+
+            <!-- Interactive Word Study Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-12">
+                <div onclick="openWordStudy('Grace')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
+                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
+                    <h3 class="font-serif text-xl font-bold text-cream-50">Grace</h3>
+                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Unmerited divine favor</p>
+                </div>
+                <div onclick="openWordStudy('Faith')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
+                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
+                    <h3 class="font-serif text-xl font-bold text-cream-50">Faith</h3>
+                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Trusting reliance in Christ</p>
+                </div>
+                <div onclick="openWordStudy('Gift')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
+                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
+                    <h3 class="font-serif text-xl font-bold text-cream-50">Gift</h3>
+                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Free unearned provision</p>
+                </div>
+                <div onclick="openWordStudy('Not By Works')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
+                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
+                    <h3 class="font-serif text-xl font-bold text-cream-50">Not By Works</h3>
+                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Excluding human boasting</p>
+                </div>
+            </div>
+
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <button onclick="scrollToSection('devotional')" class="px-6 py-3 rounded-xl bg-navy-800/80 border border-gold-500/30 text-gold-300 font-semibold shadow-lg hover:border-gold-400 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-book-bible mr-2"></i> Read Devotional
+                </button>
+                <button onclick="scrollToSection('whatnext')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-navy-950 font-semibold shadow-lg shadow-gold-500/20 hover:from-gold-400 hover:to-gold-500 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-compass mr-2"></i> What Next?
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4-Paragraph Devotional Message on By Grace Through Faith -->
+    <section id="devotional" class="relative z-10 pt-16 pb-8 px-6 max-w-4xl mx-auto">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-8">
+            <div class="text-center space-y-3">
+                <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <span>Spiritual Reflection</span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cream-50">The Wonder of Grace Through Faith</h2>
+            </div>
+
+            <div class="space-y-6 text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
+                <p>
+                    At the heart of the Christian message lies a stunning, counter-cultural truth: salvation cannot be manufactured by human effort, moral discipline, or religious achievement. Ephesians 2:8 radically redefines how we relate to the Divine by declaring that we are saved purely by grace. Grace is God’s unmerited favor—the active, passionate outpouring of His love toward creatures who could never earn or deserve rescue. It dismantles human pride, ensuring that no one can stand before the Creator and boast of their own spiritual resume.
+                </p>
+                <p>
+                    Yet grace does not operate in a vacuum; it requires an instrument through which it is received, and that instrument is faith. Faith is not a work we perform to impress God, nor is it a heroic display of human willpower. Rather, faith is the humble act of open hands. It is the posture of absolute trust that relies entirely upon what Christ has already accomplished on the cross. When we exercise faith, we stop trying to climb up to God through our own moral ladders and instead rest securely in the bridge He built down to us.
+                </p>
+                <p>
+                    Furthermore, the Apostle Paul makes the breathtaking clarification that even this faith is not ultimately from ourselves—it is the gift of God. Every element of our redemption, from the first spark of conviction to the final seal of eternal security, originates from the generous heart of our Creator. This completely liberates the believer from the crushing anxiety of performance-based spirituality. We do not have to wake up each morning wondering if we have done enough religious labor to keep God's attention; His grace holds us fast.
+                </p>
+                <p>
+                    Embracing this reality transforms how we live out our daily lives in a weary world. When we truly comprehend that we are saved by grace through faith as a free gift, gratitude replaces obligation as our primary motivator. We no longer obey God out of fear of rejection, but out of the overflowing joy of being deeply, unconditionally loved. This transformative truth anchors our souls amidst shifting circumstances, pointing us back always to the cross where grace and faith meet in perfect harmony.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- "What Next?" Section with 2-Paragraph Statement and 3 Resource Links -->
+    <section id="whatnext" class="relative z-10 py-16 px-6 max-w-4xl mx-auto">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-8 bg-gradient-to-b from-navy-900/80 to-navy-950/90">
+            <div class="text-center space-y-3">
+                <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
+                    <i class="fa-solid fa-route"></i>
+                    <span>Your Spiritual Journey</span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cream-50">What Next? How to Receive God's Salvation</h2>
+            </div>
+
+            <div class="space-y-6 text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
+                <p>
+                    To experience the life-transforming salvation offered in Ephesians 2:8, you are invited to respond to God’s grace with an open and trusting heart. Because God has already bridged the gap through Jesus Christ, there is no barrier of past mistakes or moral shortcomings standing between you and His love. Receiving this gift simply means acknowledging your need for a Savior and turning away from self-reliance, placing your total confidence in Jesus' sacrifice on the cross and His victorious resurrection. It is a personal surrender—letting go of your own efforts to earn divine approval and accepting the free, unmerited pardon that God extends to you right now.
+                </p>
+                <p>
+                    You can make this decision today through a sincere prayer of faith, speaking directly to God from your heart. Confess that you trust in Jesus alone as your Lord and Savior, thanking Him for the grace that cleanses and redeems you. Once you have placed your faith in Him, your next steps involve growing in this relationship: immerse yourself in God's Word through the Bible, talk to Him daily in prayer, and connect with a community of fellow believers where you can learn, worship, and walk in love together. This marks the beginning of an eternal journey of peace, purpose, and unending grace.
+                </p>
+                
+                <div class="pt-6 border-t border-gold-500/20 space-y-3">
+                    <h4 class="font-serif text-lg font-bold text-gold-300">Helpful Resources & Next Steps:</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <a href="https://peacewithgod.net/steps/?pk_vid=ff340c62b3f8ce071792344107463cf3" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Peace With God - Steps to Peace with God
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.gotquestions.org/how-can-I-be-saved.html" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> GotQuestions - How can I be saved?
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.desiringgod.org/interviews/what-must-i-believe-to-be-saved" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Desiring God - What must I believe to be saved?
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.peacechurch.cc/roundthetable" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Peace Church - Round the Table
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Reflection Journal Section -->
+    <section id="journal" class="relative z-10 py-16 px-6 bg-navy-900/50 border-t border-gold-500/10">
+        <div class="max-w-3xl mx-auto">
+            <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-gold-500/10 text-gold-400 flex items-center justify-center">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-cream-50">Personal Journal</h3>
+                        <p class="text-xs text-cream-300">Record your personal thoughts, prayers, and gratitude.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label for="journalTitle" class="block text-xs font-semibold text-gold-400 uppercase tracking-wider mb-2">Title / Theme</label>
+                        <input type="text" id="journalTitle" placeholder="e.g., Embracing Unearned Love" class="w-full bg-navy-950/80 border border-gold-500/30 rounded-xl px-4 py-3 text-sm text-cream-100 focus:outline-none focus:border-gold-400 transition-colors">
+                    </div>
+
+                    <div>
+                        <label for="journalContent" class="block text-xs font-semibold text-gold-400 uppercase tracking-wider mb-2">Your Reflection & Prayer</label>
+                        <textarea id="journalContent" rows="4" placeholder="Write how God's grace impacts your life today..." class="w-full bg-navy-950/80 border border-gold-500/30 rounded-xl p-4 text-sm text-cream-100 focus:outline-none focus:border-gold-400 transition-colors resize-none"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <button onclick="saveJournalEntry()" class="px-6 py-3 bg-gradient-to-r from-gold-500 to-gold-600 text-navy-950 font-semibold text-sm rounded-xl shadow-lg shadow-gold-500/20 hover:from-gold-400 hover:to-gold-500 transition-all">
+                            <i class="fa-solid fa-floppy-disk mr-2"></i> Save Entry
+                        </button>
+                        <span id="saveStatus" class="text-xs text-gold-400 font-medium"></span>
+                    </div>
+                </div>
+
+                <!-- Saved Entries Preview / List -->
+                <div class="mt-8 pt-6 border-t border-gold-500/10">
+                    <h4 class="text-xs font-semibold text-gold-400 uppercase tracking-wider mb-3">Recent Saved Reflections</h4>
+                    <div id="journalEntriesList" class="space-y-3 max-h-48 overflow-y-auto pr-2">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 glass-card border-t border-gold-500/10 py-12 px-6 text-center text-cream-300 text-sm">
+        <div class="max-w-4xl mx-auto space-y-4">
+            <div class="flex items-center justify-center space-x-2 text-gold-400 font-serif text-lg font-bold">
+                <svg class="w-4 h-4 text-gold-400 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 2h3v5h5v3h-5v12h-3V10h-5V7h5V2z"/>
+                </svg>
+                <span>BGTF Ephesians 2:8 Sanctuary</span>
+            </div>
+            <p class="text-xs text-cream-300/80 max-w-md mx-auto">
+                "For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God."
+            </p>
+            <div class="pt-4 text-xs text-cream-300/60">
+                Created with peace and reverence. Soli Deo Gloria.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Word Study Modal -->
+    <div id="wordStudyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card p-8 rounded-3xl border border-gold-500/40 max-w-lg w-full mx-4 space-y-4 shadow-2xl transform scale-95 transition-transform duration-300" id="wordStudyBox">
+            <div class="flex justify-between items-center">
+                <span id="modalWordSubtitle" class="text-xs font-semibold text-gold-400 uppercase tracking-wider">Word Study</span>
+                <button onclick="closeWordStudy()" class="text-cream-300 hover:text-gold-400 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h3 id="modalWordTitle" class="font-serif text-3xl font-bold text-cream-50">Grace</h3>
+            <p id="modalWordDefinition" class="text-sm sm:text-base text-cream-200/90 leading-relaxed font-sans"></p>
+            <button onclick="closeWordStudy()" class="w-full py-3 bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold text-sm rounded-xl transition-all shadow-md mt-4">
+                Close Study
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Message Box Modal -->
+    <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card p-8 rounded-3xl border border-gold-500/40 max-w-sm w-full mx-4 text-center space-y-4 shadow-2xl transform scale-95 transition-transform duration-300" id="modalContentBox">
+            <div id="modalIcon" class="w-12 h-12 rounded-full bg-gold-500/10 text-gold-400 flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h4 id="modalTitle" class="font-serif text-2xl font-bold text-cream-50">Saved Successfully</h4>
+            <p id="modalMessage" class="text-sm text-cream-300">Your journal entry has been safely recorded.</p>
+            <button onclick="closeModal()" class="w-full py-3 bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold text-sm rounded-xl transition-all shadow-md">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Smooth scroll helper
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if(el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- WORD STUDY MODAL DATA ---
+        const wordStudies = {
+            'Grace': 'Greek: χάρις (Charis). Grace is unmerited, unearned divine favor and loving-kindness shown to those who deserve judgment. It is the initiating motive behind our salvation.',
+            'Faith': 'Greek: πίστις (Pistis). Faith is not merely mental agreement, but active trust, reliance, and personal commitment to Jesus Christ as Lord and Savior.',
+            'Gift': 'Greek: δῶρον (Doron). A gift is something freely given without expectation of payment or repayment. Salvation cannot be bought or earned through good deeds; it is fully provided by God.',
+            'Not By Works': 'Greek: οὐκ ἐξ ἔργων (Ouk ex ergon). Highlights that human religious performance, rituals, or moral striving contribute nothing toward earning divine forgiveness, preventing any human boasting.'
+        };
+
+        function openWordStudy(word) {
+            document.getElementById('modalWordTitle').innerText = word;
+            document.getElementById('modalWordDefinition').innerText = wordStudies[word] || '';
+            
+            const modal = document.getElementById('wordStudyModal');
+            const box = document.getElementById('wordStudyBox');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                box.classList.remove('scale-95');
+                box.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeWordStudy() {
+            const modal = document.getElementById('wordStudyModal');
+            const box = document.getElementById('wordStudyBox');
+            modal.classList.add('opacity-0');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // --- JOURNAL LOCALSTORAGE MANAGEMENT ---
+        function loadJournalEntries() {
+            const listEl = document.getElementById('journalEntriesList');
+            const entries = JSON.parse(localStorage.getItem('ephesians_journal') || '[]');
+            
+            if(entries.length === 0) {
+                listEl.innerHTML = `<p class="text-xs text-cream-300/60 italic">No saved reflections yet. Write your first above.</p>`;
+                return;
+            }
+
+            listEl.innerHTML = entries.map((entry) => `
+                <div class="bg-navy-950/60 p-3 rounded-xl border border-gold-500/20 text-xs space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-gold-300 font-serif text-sm">${escapeHtml(entry.title)}</span>
+                        <span class="text-[10px] text-cream-300/60">${entry.date}</span>
+                    </div>
+                    <p class="text-cream-300 line-clamp-2">${escapeHtml(entry.content)}</p>
+                </div>
+            `).join('');
+        }
+
+        function saveJournalEntry() {
+            const title = document.getElementById('journalTitle').value.trim();
+            const content = document.getElementById('journalContent').value.trim();
+
+            if(!title || !content) {
+                showModal("Missing Information", "Please enter both a title and reflection content before saving.", "fa-solid fa-triangle-exclamation");
+                return;
+            }
+
+            const newEntry = {
+                title,
+                content,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            };
+
+            const entries = JSON.parse(localStorage.getItem('ephesians_journal') || '[]');
+            entries.unshift(newEntry);
+            localStorage.setItem('ephesians_journal', JSON.stringify(entries));
+
+            document.getElementById('journalTitle').value = '';
+            document.getElementById('journalContent').value = '';
+            
+            loadJournalEntries();
+            showModal("Reflection Saved", "Your prayer and reflection have been securely saved to your local journal.", "fa-solid fa-circle-check");
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // --- CUSTOM MODAL CONTROLS ---
+        function showModal(title, message, iconClass) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = message;
+            document.getElementById('modalIcon').innerHTML = `<i class="${iconClass}"></i>`;
+            
+            const modal = document.getElementById('customModal');
+            const box = document.getElementById('modalContentBox');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                box.classList.remove('scale-95');
+                box.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            const box = document.getElementById('modalContentBox');
+            modal.classList.add('opacity-0');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            loadJournalEntries();
+        };
+    </script>
+</body>
+</html>
