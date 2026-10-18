@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment, Expense and Income Tracker</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col antialiased">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 text-white p-2 rounded-xl shadow-md">
+                    <i data-lucide="trending-up" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Investment, Expense and Income Tracker</h1>
+                    <p class="text-xs text-indigo-600 font-bold">Remove or replace the demo data and add your own data under each tab by clicking the add button</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="openResetModal()" class="inline-flex items-center space-x-1 px-3 py-1.5 border border-slate-300 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    <span class="hidden sm:inline">Reset Demo Data</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="bg-white border-b border-slate-200 shadow-2xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 overflow-x-auto">
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 border-indigo-600 text-indigo-600 whitespace-nowrap">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                <span>Dashboard</span>
+            </button>
+            <button onclick="switchTab('investments')" id="nav-investments" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap">
+                <i data-lucide="pie-chart" class="w-4 h-4"></i>
+                <span>Investments</span>
+            </button>
+            <button onclick="switchTab('expenses')" id="nav-expenses" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap">
+                <i data-lucide="receipt" class="w-4 h-4"></i>
+                <span>Monthly Expenses</span>
+            </button>
+            <button onclick="switchTab('income')" id="nav-income" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap">
+                <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                <span>Income Sources</span>
+            </button>
+            <button onclick="switchTab('trends')" id="nav-trends" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap">
+                <i data-lucide="line-chart" class="w-4 h-4"></i>
+                <span>Trends & History</span>
+            </button>
+            <button onclick="switchTab('comparison')" id="nav-comparison" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap">
+                <i data-lucide="scale" class="w-4 h-4"></i>
+                <span>Comparison & Analytics</span>
+            </button>
+            <button onclick="switchTab('projections')" id="nav-projections" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap">
+                <i data-lucide="telescope" class="w-4 h-4"></i>
+                <span>Future Projections</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-y-auto">
+
+        <!-- TAB 1: DASHBOARD -->
+        <section id="tab-dashboard" class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Investments</p>
+                        <h3 id="dashTotalInvestments" class="text-2xl font-bold text-slate-900 mt-1">$0.00</h3>
+                        <p class="text-xs text-emerald-600 mt-1 flex items-center"><i data-lucide="arrow-up-right" class="w-3 h-3 mr-1"></i>Incl. Bank Accounts & 401k</p>
+                    </div>
+                    <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i data-lucide="wallet" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Monthly Income</p>
+                        <h3 id="dashTotalIncome" class="text-2xl font-bold text-emerald-600 mt-1">$0.00</h3>
+                        <p class="text-xs text-slate-500 mt-1">Active monthly inflows</p>
+                    </div>
+                    <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Monthly Expenses</p>
+                        <h3 id="dashTotalExpenses" class="text-2xl font-bold text-rose-600 mt-1">$0.00</h3>
+                        <p class="text-xs text-slate-500 mt-1">Total monthly burn rate</p>
+                    </div>
+                    <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
+                        <i data-lucide="credit-card" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Monthly Net Gain / Loss</p>
+                        <h3 id="dashNetGainLoss" class="text-2xl font-bold text-slate-900 mt-1">$0.00</h3>
+                        <p id="dashNetGainLossSub" class="text-xs text-slate-500 mt-1">Income minus Expenses</p>
+                    </div>
+                    <div id="dashNetGainLossIcon" class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <i data-lucide="activity" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h4 class="text-base font-semibold text-slate-900 mb-1 flex items-center justify-between">
+                        <span>Monthly Income vs. Expenses ($)</span>
+                        <span id="dashGainLossBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700">Surplus</span>
+                    </h4>
+                    <p class="text-xs text-slate-400 mb-4">Actual dollar comparison highlighting monthly net gain or loss.</p>
+                    <div class="relative h-72 flex items-center justify-center">
+                        <canvas id="incomeVsExpenseDollarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h4 class="text-base font-semibold text-slate-900 mb-1">Asset Allocation (6 Categories)</h4>
+                    <p class="text-xs text-slate-400 mb-4">Breakdown across all 6 required investment classes.</p>
+                    <div class="relative h-72 flex items-center justify-center">
+                        <canvas id="categoryDonutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-base font-semibold text-slate-900">Recent Investments</h4>
+                        <button onclick="switchTab('investments')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">View All →</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-400 text-xs uppercase">
+                                <tr>
+                                    <th class="p-3 rounded-l-lg">Name</th>
+                                    <th class="p-3">Category</th>
+                                    <th class="p-3 text-right rounded-r-lg">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashRecentInvestments" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-base font-semibold text-slate-900">Monthly Expenses</h4>
+                        <button onclick="switchTab('expenses')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">View All →</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 text-slate-400 text-xs uppercase">
+                                <tr>
+                                    <th class="p-3 rounded-l-lg">Title</th>
+                                    <th class="p-3">Category</th>
+                                    <th class="p-3 text-right rounded-r-lg">Monthly Amt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashRecentExpenses" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: INVESTMENTS -->
+        <section id="tab-investments" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Investment Portfolio</h2>
+                    <p class="text-sm text-slate-500">Manage assets across Bank Accounts, Stocks/Equities, Real Estate, Crypto, Retirement/401k, and Other Assets.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white px-4 py-2 rounded-2xl border border-slate-200 shadow-xs text-right">
+                        <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Total Financial Net Worth</div>
+                        <div id="invPortfolioTotalNetWorth" class="text-lg font-bold text-emerald-600">$0.00</div>
+                    </div>
+                    <button onclick="openInvestmentModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 shadow-sm transition">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Add Investment</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="investmentCategoryCards"></div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+                <div class="p-4 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center space-x-2">
+                        <label class="text-xs font-medium text-slate-500 uppercase">Filter Category:</label>
+                        <select id="filterInvCategory" onchange="renderInvestmentsTable()" class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg px-3 py-1.5 focus:ring-indigo-500">
+                            <option value="ALL">All 6 Categories</option>
+                            <option value="Bank Accounts">Bank Accounts</option>
+                            <option value="Crypto">Crypto</option>
+                            <option value="Other Assets">Other Assets</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Retirement/401k">Retirement/401k</option>
+                            <option value="Stocks/Equities">Stocks/Equities</option>
+                        </select>
+                    </div>
+                    <div class="text-xs text-slate-500" id="invCountText">Showing 0 investments</div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50/75 border-b border-slate-200 text-slate-500 font-semibold text-xs uppercase tracking-wider">
+                            <tr>
+                                <th class="p-4">Name & Notes</th>
+                                <th class="p-4">Category</th>
+                                <th class="p-4">Starting Principal</th>
+                                <th class="p-4">Current Value</th>
+                                <th class="p-4">Return (%)</th>
+                                <th class="p-4">Start Date</th>
+                                <th class="p-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="investmentsTableBody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: MONTHLY EXPENSES -->
+        <section id="tab-expenses" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Monthly Expense Tracker</h2>
+                    <p class="text-sm text-slate-500">Record and categorize recurring monthly expenses, including Housing, Cash Withdraw, Monthly Dues, Insurance, Credit Card, Hobbies, Taxes, Projects, Vacations, Medical, Pet, and Child.</p>
+                </div>
+                <button onclick="openExpenseModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-rose-600 text-white font-medium rounded-xl hover:bg-rose-700 shadow-sm transition">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>Add Monthly Expense</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Monthly Spending</p>
+                    <h3 id="expTotalAmt" class="text-2xl font-bold text-rose-600 mt-1">$0.00</h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Largest Expense Category</p>
+                    <h3 id="expTopCat" class="text-xl font-bold text-slate-900 mt-1">None</h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Categories / Items</p>
+                    <h3 id="expTotalCount" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+                <div class="p-4 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center space-x-2">
+                        <label class="text-xs font-medium text-slate-500 uppercase">Filter Category:</label>
+                        <select id="filterExpCategory" onchange="renderExpensesTable()" class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg px-3 py-1.5 focus:ring-rose-500">
+                            <option value="ALL">All Categories</option>
+                            <option value="Cash Withdraw">Cash Withdraw</option>
+                            <option value="Charitable Donations">Charitable Donations</option>
+                            <option value="Child">Child</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Food">Food</option>
+                            <option value="Going Out to Eat">Going Out to Eat</option>
+                            <option value="Hobbies">Hobbies</option>
+                            <option value="Housing">Housing</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Monthly Dues">Monthly Dues</option>
+                            <option value="Other">Other</option>
+                            <option value="Pet">Pet</option>
+                            <option value="Projects">Projects</option>
+                            <option value="Taxes">Taxes</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Vacations">Vacations</option>
+                        </select>
+                    </div>
+                    <div class="text-xs text-slate-500" id="expCountText">Showing 0 expenses</div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50/75 border-b border-slate-200 text-slate-500 font-semibold text-xs uppercase tracking-wider">
+                            <tr>
+                                <th class="p-4">Title & Notes</th>
+                                <th class="p-4">Category</th>
+                                <th class="p-4">Monthly Amount</th>
+                                <th class="p-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expensesTableBody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: INCOME SOURCES -->
+        <section id="tab-income" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Income Sources</h2>
+                    <p class="text-sm text-slate-500">Track regular monthly earnings, salary, social security, disability, and side-hustles.</p>
+                </div>
+                <button onclick="openIncomeModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 shadow-sm transition">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>Add Income Source</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Monthly Income</p>
+                    <h3 id="incTotalAmt" class="text-2xl font-bold text-emerald-600 mt-1">$0.00</h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Active Income Streams</p>
+                    <h3 id="incTotalCount" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+                <div class="p-4 border-b border-slate-200 bg-slate-50">
+                    <h4 class="text-sm font-bold text-slate-900">Income Sources Breakdown</h4>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50/75 border-b border-slate-200 text-slate-500 font-semibold text-xs uppercase tracking-wider">
+                            <tr>
+                                <th class="p-4">Source Title</th>
+                                <th class="p-4">Category</th>
+                                <th class="p-4">Monthly Amount</th>
+                                <th class="p-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="incomeTableBody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: TRENDS & HISTORY -->
+        <section id="tab-trends" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Trends & Historical Analytics</h2>
+                    <p class="text-sm text-slate-500">Monitor wealth growth velocity, monthly net gains/losses, individual investment trajectories, and historical summaries.</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label class="text-xs font-medium text-slate-500 uppercase">Time Horizon:</label>
+                    <select id="trendTimeHorizon" onchange="renderTrendsCharts()" class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg px-3 py-1.5 focus:ring-indigo-500">
+                        <option value="6">Past 6 Months</option>
+                        <option value="12" selected>Past 12 Months</option>
+                        <option value="24">Past 24 Months</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Average Monthly Income</p>
+                    <h3 id="trendAvgInc" class="text-2xl font-bold text-emerald-600 mt-1">$0.00</h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Average Monthly Expenses</p>
+                    <h3 id="trendAvgExp" class="text-2xl font-bold text-rose-600 mt-1">$0.00</h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Net Wealth Growth Trend</p>
+                    <h3 id="trendNetGrowth" class="text-2xl font-bold text-indigo-600 mt-1">+0%</h3>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h4 class="text-base font-semibold text-slate-900 mb-1">Historical Net Worth Growth</h4>
+                    <p class="text-xs text-slate-400 mb-4">Tracking overall asset valuation across the selected timeframe.</p>
+                    <div class="relative h-72 flex items-center justify-center">
+                        <canvas id="trendNetWorthChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h4 class="text-base font-semibold text-slate-900 mb-1">Monthly Cash Flow: Income vs Expenses</h4>
+                    <p class="text-xs text-slate-400 mb-4">Compare monthly inflows against living expenditures.</p>
+                    <div class="relative h-72 flex items-center justify-center">
+                        <canvas id="trendCashFlowChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investments Dollar Increase Donut Chart -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-1">
+                    <h4 class="text-base font-semibold text-slate-900">Investment Dollar Increase Breakdown (Start to Current)</h4>
+                    <div class="flex items-center space-x-2">
+                        <label class="text-xs font-medium text-slate-500 uppercase">Sort By:</label>
+                        <select id="trendSortMetric" onchange="renderTrendsCharts()" class="bg-white border border-slate-300 text-slate-700 text-xs rounded-lg px-2.5 py-1.5 focus:ring-indigo-500">
+                            <option value="amount">Dollar Amount Increase</option>
+                            <option value="percent">Percentage Increase (%)</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 mb-4">Donut chart displaying the absolute dollar increase from each asset's starting principal.</p>
+                <div class="relative h-80 flex items-center justify-center">
+                    <canvas id="trendInvestmentsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: COMPARISON & ANALYTICS -->
+        <section id="tab-comparison" class="space-y-6 hidden">
+            <div>
+                <h2 class="text-xl font-bold text-slate-900">Comparison & Analytics Dashboard</h2>
+                <p class="text-sm text-slate-500">Analyze the interplay between your investments growth, monthly income, and monthly expense burn rate.</p>
+            </div>
+
+            <div class="bg-gradient-to-r from-indigo-900 to-slate-900 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <div class="inline-flex items-center space-x-1.5 py-1 px-3 rounded-full bg-indigo-500/30 text-indigo-200 text-xs font-semibold uppercase tracking-wider">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                        <span>Financial Health Index</span>
+                    </div>
+                    <h3 id="healthTitle" class="text-2xl font-bold">Balanced Financial Position</h3>
+                    <p id="healthDesc" class="text-sm text-slate-300 max-w-xl">Your monthly income exceeds expenses, generating a healthy net gain.</p>
+                </div>
+                <div class="flex items-center space-x-6 bg-white/10 p-4 rounded-xl backdrop-blur-xs">
+                    <div>
+                        <div class="text-xs text-slate-300 uppercase">Monthly Net Gain</div>
+                        <div id="compNetGain" class="text-2xl font-bold text-emerald-400">$0.00</div>
+                    </div>
+                    <div class="border-l border-white/20 pl-6">
+                        <div class="text-xs text-slate-300 uppercase">Savings Rate</div>
+                        <div id="compSavingsRate" class="text-2xl font-bold text-indigo-300">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h4 class="text-base font-semibold text-slate-900 mb-1">Monthly Income vs. Expenses ($) Comparison</h4>
+                    <p class="text-xs text-slate-400 mb-4">Exact dollar comparison showing monthly surplus or deficit.</p>
+                    <div class="relative h-72 flex items-center justify-center">
+                        <canvas id="compIncomeVsExpenseDollarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h4 class="text-base font-semibold text-slate-900 mb-1">6 Investment Categories Breakdown</h4>
+                    <p class="text-xs text-slate-400 mb-4">Distribution across all asset classes.</p>
+                    <div class="relative h-72 flex items-center justify-center">
+                        <canvas id="compAssetBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: FUTURE PROJECTIONS -->
+        <section id="tab-projections" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Future Projections & Wealth Forecasting</h2>
+                    <p class="text-sm text-slate-500">Project investment growth and net worth into the future (1, 3, 5, and 10 years).</p>
+                </div>
+                <button onclick="resetProjectionParams()" class="inline-flex items-center space-x-1 px-3 py-1.5 border border-slate-300 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50">
+                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                    <span>Reset Defaults</span>
+                </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-2">
+                    <i data-lucide="sliders" class="w-4 h-4 text-indigo-600"></i>
+                    <span>Projection Assumptions & Variables</span>
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Time Horizon (Years): <span id="valYears" class="font-bold text-indigo-600">5</span></label>
+                        <input type="range" id="projYears" min="1" max="10" value="5" oninput="updateProjections()" class="w-full accent-indigo-600 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Expected Annual Return (%): <span id="valReturn" class="font-bold text-emerald-600">5.0%</span></label>
+                        <input type="range" id="projReturn" min="0" max="20" step="0.5" value="5" oninput="updateProjections()" class="w-full accent-emerald-600 cursor-pointer">
+                    </div>
+                </div>
+                <div class="pt-2 border-t border-slate-100">
+                    <label class="block text-xs font-medium text-slate-700 mb-1">Monthly Withdrawal / Spend ($):</label>
+                    <input type="number" id="projMonthlyDeduction" value="500" step="50" oninput="updateProjections()" class="w-full sm:w-1/3 bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-sm">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Contributions Added</p>
+                    <h3 id="projTotalContributions" class="text-2xl font-bold text-indigo-600 mt-1">$0.00</h3>
+                    <p class="text-xs text-slate-400 mt-1">Principal deposits</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Projected Portfolio Value</p>
+                    <h3 id="projFinalValue" class="text-2xl font-bold text-emerald-600 mt-1">$0.00</h3>
+                    <p id="projTimelineLabel" class="text-xs text-slate-400 mt-1">In 5 years</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Projected Total Withdrawals</p>
+                    <h3 id="projTotalWithdrawals" class="text-2xl font-bold text-rose-600 mt-1">$0.00</h3>
+                    <p class="text-xs text-slate-400 mt-1">Cumulative withdrawals</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Compound Interest Gain</p>
+                    <h3 id="projTotalInterest" class="text-2xl font-bold text-amber-600 mt-1">$0.00</h3>
+                    <p class="text-xs text-slate-400 mt-1">Investment returns generated</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+                    <h4 class="text-base font-semibold text-slate-900">Standard Growth Forecast (With Withdrawals & Returns)</h4>
+                    <div class="relative h-80 w-full flex items-center justify-center">
+                        <canvas id="projectionChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+                    <h4 class="text-base font-semibold text-slate-900">Projected Cumulative Withdrawals & Compound Interest</h4>
+                    <div class="relative h-80 w-full flex items-center justify-center">
+                        <canvas id="projectionWithdrawalsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODALS -->
+    <!-- INVESTMENT MODAL -->
+    <div id="investmentModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 id="invModalTitle" class="text-lg font-bold text-slate-900">Add Investment Asset</h3>
+                <button onclick="closeInvestmentModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="investmentForm" onsubmit="handleInvestmentSubmit(event)" class="space-y-4">
+                <input type="hidden" id="invEditIndex" value="-1">
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Asset Name</label>
+                    <input type="text" id="invName" required placeholder="e.g. Chase Bank Savings, Vanguard 401k, Apple Stock" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Investment Category (Exactly 6 Classes)</label>
+                    <select id="invCategory" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
+                        <option value="Bank Accounts">Bank Accounts</option>
+                        <option value="Stocks/Equities">Stocks/Equities</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Crypto">Crypto</option>
+                        <option value="Retirement/401k">Retirement/401k</option>
+                        <option value="Other Assets">Other Assets</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Starting Amount ($)</label>
+                        <input type="number" step="0.01" id="invStartValue" required placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Current Value ($)</label>
+                        <input type="number" step="0.01" id="invValue" required placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Start Date</label>
+                    <input type="date" id="invDate" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Notes / Description</label>
+                    <textarea id="invNotes" rows="2" placeholder="Optional details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm"></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeInvestmentModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700">Save Investment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EXPENSE MODAL -->
+    <div id="expenseModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 id="expModalTitle" class="text-lg font-bold text-slate-900">Add Monthly Expense</h3>
+                <button onclick="closeExpenseModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="expenseForm" onsubmit="handleExpenseSubmit(event)" class="space-y-4">
+                <input type="hidden" id="expEditIndex" value="-1">
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Expense Title</label>
+                    <input type="text" id="expTitle" required placeholder="e.g. Restaurant Dinner, Weekend Dining" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Category</label>
+                    <select id="expCategory" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                        <option value="Cash Withdraw">Cash Withdraw</option>
+                        <option value="Charitable Donations">Charitable Donations</option>
+                        <option value="Child">Child</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Food">Food</option>
+                        <option value="Going Out to Eat">Going Out to Eat</option>
+                        <option value="Hobbies">Hobbies</option>
+                        <option value="Housing">Housing</option>
+                        <option value="Insurance">Insurance</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Monthly Dues">Monthly Dues</option>
+                        <option value="Other">Other</option>
+                        <option value="Pet">Pet</option>
+                        <option value="Projects">Projects</option>
+                        <option value="Taxes">Taxes</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Vacations">Vacations</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Monthly Amount ($)</label>
+                    <input type="number" step="0.01" id="expAmount" required placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Notes / Description</label>
+                    <textarea id="expNotes" rows="2" placeholder="Optional details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeExpenseModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-rose-600 text-white text-sm font-medium rounded-xl hover:bg-rose-700">Save Monthly Expense</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- INCOME MODAL -->
+    <div id="incomeModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 id="incModalTitle" class="text-lg font-bold text-slate-900">Add Income Source</h3>
+                <button onclick="closeIncomeModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="incomeForm" onsubmit="handleIncomeSubmit(event)" class="space-y-4">
+                <input type="hidden" id="incEditIndex" value="-1">
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Income Source Title</label>
+                    <input type="text" id="incTitle" required placeholder="e.g. Primary Salary, Social Security" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Category</label>
+                    <select id="incCategory" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                        <option value="Disability">Disability</option>
+                        <option value="Other">Other</option>
+                        <option value="Retirement/401k">Retirement/401k</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Side Hustle">Side Hustle</option>
+                        <option value="Social Security">Social Security</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Monthly Amount ($)</label>
+                    <input type="number" step="0.01" id="incAmount" required placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeIncomeModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-xl hover:bg-emerald-700">Save Income</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- RESET MODAL -->
+    <div id="resetModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-100 space-y-4">
+            <div class="flex items-center space-x-3 text-amber-600">
+                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                <h3 class="text-lg font-bold text-slate-900">Reset Demo Data?</h3>
+            </div>
+            <p class="text-sm text-slate-500">This will restore sample data with the 6 required investment categories, monthly expenses, and income sources.</p>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeResetModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl">Cancel</button>
+                <button onclick="confirmResetData()" class="px-4 py-2 bg-amber-600 text-white text-sm font-medium rounded-xl">Reset Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICATION LOGIC & CHARTS -->
+    <script>
+        const INV_CATEGORIES = [
+            'Bank Accounts',
+            'Crypto',
+            'Other Assets',
+            'Real Estate',
+            'Retirement/401k',
+            'Stocks/Equities'
+        ];
+
+        let investments = JSON.parse(localStorage.getItem('finpulse_investments')) || [
+            { name: 'Example bank entry', category: 'Bank Accounts', startValue: 20000, value: 24000, date: '2025-01-01', notes: 'Operating cash' },
+            { name: 'Example stock entry', category: 'Stocks/Equities', startValue: 50000, value: 68000, date: '2024-06-10', notes: 'Brokerage account' }
+        ];
+
+        let incomes = JSON.parse(localStorage.getItem('finpulse_incomes')) || [
+            { title: 'Example Salary', category: 'Salary', amount: 8500 },
+            { title: 'Example Social Security', category: 'Social Security', amount: 1800 },
+            { title: 'Example 401K', category: 'Retirement/401k', amount: 1200 }
+        ];
+
+        let expenses = JSON.parse(localStorage.getItem('finpulse_expenses')) || [
+            { title: 'Example rent or mortgage amount ', category: 'Housing', amount: 2400, notes: 'Monthly lease' },
+            { title: 'Example Groceries', category: 'Food', amount: 750, notes: 'Weekly markets' }
+        ];
+
+        let categoryDonutChartObj = null;
+        let incomeVsExpenseDollarChartObj = null;
+        let compIncomeVsExpenseDollarChartObj = null;
+        let compAssetBarChartObj = null;
+        let trendNetWorthChartObj = null;
+        let trendCashFlowChartObj = null;
+        let trendInvestmentsChartObj = null;
+        let projectionChartObj = null;
+        let projectionWithdrawalsChartObj = null;
+
+        window.onload = function() {
+            initApp();
+            lucide.createIcons();
+        };
+
+        function saveToLocalStorage() {
+            localStorage.setItem('finpulse_investments', JSON.stringify(investments));
+            localStorage.setItem('finpulse_incomes', JSON.stringify(incomes));
+            localStorage.setItem('finpulse_expenses', JSON.stringify(expenses));
+        }
+
+        function initApp() {
+            saveToLocalStorage();
+            renderDashboard();
+            renderInvestments();
+            renderExpenses();
+            renderIncome();
+            renderTrendsCharts();
+            updateProjections();
+            renderComparisonAnalytics();
+            lucide.createIcons();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('border-indigo-600', 'text-indigo-600');
+                btn.classList.add('border-transparent', 'text-slate-500');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.remove('border-transparent', 'text-slate-500');
+                activeNav.classList.add('border-indigo-600', 'text-indigo-600');
+            }
+            lucide.createIcons();
+        }
+
+        function formatCurrency(val) {
+            return '$' + Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function getTotalInvestments() {
+            return investments.reduce((sum, item) => sum + Number(item.value || 0), 0);
+        }
+
+        function getTotalIncome() {
+            return incomes.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+        }
+
+        function getTotalExpenses() {
+            return expenses.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+        }
+
+        function renderDashboard() {
+            const totalInv = getTotalInvestments();
+            const totalInc = getTotalIncome();
+            const totalExp = getTotalExpenses();
+            const netGainLoss = totalInc - totalExp;
+
+            document.getElementById('dashTotalInvestments').innerText = formatCurrency(totalInv);
+            document.getElementById('dashTotalIncome').innerText = formatCurrency(totalInc);
+            document.getElementById('dashTotalExpenses').innerText = formatCurrency(totalExp);
+
+            const netGainLossEl = document.getElementById('dashNetGainLoss');
+            netGainLossEl.innerText = formatCurrency(Math.abs(netGainLoss));
+            netGainLossEl.className = `text-2xl font-bold mt-1 ${netGainLoss >= 0 ? 'text-emerald-600' : 'text-rose-600'}`;
+
+            const badge = document.getElementById('dashGainLossBadge');
+            if (netGainLoss >= 0) {
+                badge.innerText = 'Monthly Surplus';
+                badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700';
+            } else {
+                badge.innerText = 'Monthly Deficit';
+                badge.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700';
+            }
+
+            renderIncomeVsExpenseDollarChart('incomeVsExpenseDollarChart');
+            renderCategoryDonutChart();
+
+            const recentInvBody = document.getElementById('dashRecentInvestments');
+            recentInvBody.innerHTML = investments.slice(-4).reverse().map(inv => `
+                <tr>
+                    <td class="p-3 font-medium text-slate-900">${inv.name}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 text-xs bg-indigo-50 text-indigo-700 rounded-md font-medium">${inv.category}</span></td>
+                    <td class="p-3 text-right font-bold text-slate-900">${formatCurrency(inv.value)}</td>
+                </tr>
+            `).join('') || `<tr><td colspan="3" class="p-4 text-center text-slate-400">No investments added yet</td></tr>`;
+
+            const recentExpBody = document.getElementById('dashRecentExpenses');
+            recentExpBody.innerHTML = expenses.slice(-4).reverse().map(exp => `
+                <tr>
+                    <td class="p-3 font-medium text-slate-900">${exp.title}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 text-xs bg-rose-50 text-rose-700 rounded-md font-medium">${exp.category}</span></td>
+                    <td class="p-3 text-right font-bold text-rose-600">${formatCurrency(exp.amount)}</td>
+                </tr>
+            `).join('') || `<tr><td colspan="3" class="p-4 text-center text-slate-400">No expenses added yet</td></tr>`;
+        }
+
+        function renderIncomeVsExpenseDollarChart(canvasId) {
+            const ctx = document.getElementById(canvasId);
+            if (!ctx) return;
+            const totalInc = getTotalIncome();
+            const totalExp = getTotalExpenses();
+
+            if (canvasId === 'incomeVsExpenseDollarChart' && incomeVsExpenseDollarChartObj) {
+                incomeVsExpenseDollarChartObj.destroy();
+            } else if (canvasId === 'compIncomeVsExpenseDollarChart' && compIncomeVsExpenseDollarChartObj) {
+                compIncomeVsExpenseDollarChartObj.destroy();
+            }
+
+            const chartObj = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Monthly Inflows', 'Monthly Outflows'],
+                    datasets: [{
+                        label: 'Amount ($)',
+                        data: [totalInc, totalExp],
+                        backgroundColor: ['#10b981', '#f43f5e'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: val => '$' + val.toLocaleString() }
+                        }
+                    }
+                }
+            });
+
+            if (canvasId === 'incomeVsExpenseDollarChart') incomeVsExpenseDollarChartObj = chartObj;
+            if (canvasId === 'compIncomeVsExpenseDollarChart') compIncomeVsExpenseDollarChartObj = chartObj;
+        }
+
+        function renderCategoryDonutChart() {
+            const ctx = document.getElementById('categoryDonutChart').getContext('2d');
+            const dataVals = INV_CATEGORIES.map(cat => investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0));
+
+            if (categoryDonutChartObj) categoryDonutChartObj.destroy();
+
+            categoryDonutChartObj = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: INV_CATEGORIES,
+                    datasets: [{
+                        data: dataVals,
+                        backgroundColor: ['#3b82f6', '#6366f1', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        function renderInvestments() {
+            const totalNetWorth = getTotalInvestments();
+            const netWorthEl = document.getElementById('invPortfolioTotalNetWorth');
+            if (netWorthEl) netWorthEl.innerText = formatCurrency(totalNetWorth);
+
+            const container = document.getElementById('investmentCategoryCards');
+            container.innerHTML = INV_CATEGORIES.map(cat => {
+                const total = investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0);
+                return `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+                        <span class="text-[11px] font-semibold text-indigo-600 uppercase tracking-wider block truncate">${cat}</span>
+                        <h4 class="text-lg font-bold text-slate-900 mt-1">${formatCurrency(total)}</h4>
+                    </div>
+                `;
+            }).join('');
+            renderInvestmentsTable();
+        }
+
+        function renderInvestmentsTable() {
+            const filter = document.getElementById('filterInvCategory').value;
+            const filtered = filter === 'ALL' ? [...investments] : investments.filter(i => i.category === filter);
+
+            filtered.sort((a, b) => Number(b.value || 0) - Number(a.value || 0));
+
+            document.getElementById('invCountText').innerText = `Showing ${filtered.length} investment(s)`;
+            const tbody = document.getElementById('investmentsTableBody');
+
+            tbody.innerHTML = filtered.map((inv) => {
+                const startVal = Number(inv.startValue || inv.value || 0);
+                const currVal = Number(inv.value || 0);
+                const diff = currVal - startVal;
+                const pct = startVal > 0 ? (diff / startVal) * 100 : 0;
+                const isPos = diff >= 0;
+
+                return `
+                    <tr class="hover:bg-slate-50/55 transition">
+                        <td class="p-4">
+                            <div class="font-bold text-slate-900">${inv.name}</div>
+                            <div class="text-xs text-slate-400 truncate max-w-xs">${inv.notes || 'No notes'}</div>
+                        </td>
+                        <td class="p-4"><span class="px-2.5 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-lg font-medium">${inv.category}</span></td>
+                        <td class="p-4 text-slate-600 font-medium">${formatCurrency(startVal)}</td>
+                        <td class="p-4 font-bold text-slate-900">${formatCurrency(currVal)}</td>
+                        <td class="p-4">
+                            <span class="inline-flex items-center space-x-1 px-2 py-1 rounded-md text-xs font-semibold ${isPos ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}">
+                                <i data-lucide="${isPos ? 'trending-up' : 'trending-down'}" class="w-3 h-3"></i>
+                                <span>${isPos ? '+' : ''}${pct.toFixed(1)}%</span>
+                            </span>
+                        </td>
+                        <td class="p-4 text-slate-500 text-xs">${inv.date || 'N/A'}</td>
+                        <td class="p-4 text-right space-x-2">
+                            <button onclick="openInvestmentModal(${investments.indexOf(inv)})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                            <button onclick="deleteInvestment(${investments.indexOf(inv)})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('') || `<tr><td colspan="7" class="p-6 text-center text-slate-400">No investments found</td></tr>`;
+            lucide.createIcons();
+        }
+
+        function renderExpenses() {
+            expenses.sort((a, b) => Number(b.amount || 0) - Number(a.amount || 0));
+
+            const total = getTotalExpenses();
+            document.getElementById('expTotalAmt').innerText = formatCurrency(total);
+            document.getElementById('expTotalCount').innerText = expenses.length;
+
+            const catTotals = {};
+            expenses.forEach(e => {
+                catTotals[e.category] = (catTotals[e.category] || 0) + Number(e.amount);
+            });
+            let topCat = 'None';
+            let maxAmt = -1;
+            for (let c in catTotals) {
+                if (catTotals[c] > maxAmt) {
+                    maxAmt = catTotals[c];
+                    topCat = c;
+                }
+            }
+            document.getElementById('expTopCat').innerText = topCat !== 'None' ? `${topCat} (${formatCurrency(maxAmt)})` : 'None';
+
+            const filter = document.getElementById('filterExpCategory').value;
+            const filtered = filter === 'ALL' ? [...expenses] : expenses.filter(e => e.category === filter);
+
+            document.getElementById('expCountText').innerText = `Showing ${filtered.length} expense(s)`;
+            const tbody = document.getElementById('expensesTableBody');
+
+            tbody.innerHTML = filtered.map((exp) => {
+                const realIdx = expenses.indexOf(exp);
+                return `
+                    <tr class="hover:bg-slate-50/55 transition">
+                        <td class="p-4">
+                            <div class="font-bold text-slate-900">${exp.title}</div>
+                            <div class="text-xs text-slate-400">${exp.notes || ''}</div>
+                        </td>
+                        <td class="p-4"><span class="px-2.5 py-1 text-xs bg-rose-50 text-rose-700 rounded-lg font-medium">${exp.category}</span></td>
+                        <td class="p-4 font-bold text-rose-600">${formatCurrency(exp.amount)}</td>
+                        <td class="p-4 text-right space-x-2">
+                            <button onclick="openExpenseModal(${realIdx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                            <button onclick="deleteExpense(${realIdx})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('') || `<tr><td colspan="4" class="p-6 text-center text-slate-400">No monthly expenses found</td></tr>`;
+            lucide.createIcons();
+        }
+
+        function renderIncome() {
+            incomes.sort((a, b) => Number(b.amount || 0) - Number(a.amount || 0));
+
+            const total = getTotalIncome();
+            document.getElementById('incTotalAmt').innerText = formatCurrency(total);
+            document.getElementById('incTotalCount').innerText = incomes.length;
+
+            const tbody = document.getElementById('incomeTableBody');
+            tbody.innerHTML = incomes.map((inc, idx) => `
+                <tr class="hover:bg-slate-50/55 transition">
+                    <td class="p-4 font-bold text-slate-900">${inc.title}</td>
+                    <td class="p-4"><span class="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-700 rounded-lg font-medium">${inc.category}</span></td>
+                    <td class="p-4 font-bold text-emerald-600">${formatCurrency(inc.amount)}</td>
+                    <td class="p-4 text-right space-x-2">
+                        <button onclick="openIncomeModal(${idx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                        <button onclick="deleteIncome(${idx})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </td>
+                </tr>
+            `).join('') || `<tr><td colspan="4" class="p-6 text-center text-slate-400">No income sources added</td></tr>`;
+            lucide.createIcons();
+        }
+
+        function renderTrendsCharts() {
+            const monthsCount = parseInt(document.getElementById('trendTimeHorizon').value) || 12;
+            const labels = [];
+            const netWorthData = [];
+            const cashFlowInc = [];
+            const cashFlowExp = [];
+
+            const totalInv = getTotalInvestments();
+            const totalInc = getTotalIncome();
+            const totalExp = getTotalExpenses();
+
+            for (let i = monthsCount - 1; i >= 0; i--) {
+                const d = new Date();
+                d.setMonth(d.getMonth() - i);
+                labels.push(d.toLocaleString('default', { month: 'short', year: '2-digit' }));
+                const factor = 1 - (i * 0.015);
+                netWorthData.push(Math.round(totalInv * factor));
+                cashFlowInc.push(totalInc);
+                cashFlowExp.push(totalExp);
+            }
+
+            document.getElementById('trendAvgInc').innerText = formatCurrency(totalInc);
+            document.getElementById('trendAvgExp').innerText = formatCurrency(totalExp);
+            document.getElementById('trendNetGrowth').innerText = `+${(monthsCount * 1.5).toFixed(1)}%`;
+
+            const ctxNet = document.getElementById('trendNetWorthChart').getContext('2d');
+            if (trendNetWorthChartObj) trendNetWorthChartObj.destroy();
+            trendNetWorthChartObj = new Chart(ctxNet, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Net Worth ($)',
+                        data: netWorthData,
+                        borderColor: '#6366f1',
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            const ctxCF = document.getElementById('trendCashFlowChart').getContext('2d');
+            if (trendCashFlowChartObj) trendCashFlowChartObj.destroy();
+            trendCashFlowChartObj = new Chart(ctxCF, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: 'Income', data: cashFlowInc, backgroundColor: '#10b981', borderRadius: 4 },
+                        { label: 'Expenses', data: cashFlowExp, backgroundColor: '#f43f5e', borderRadius: 4 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            const ctxInv = document.getElementById('trendInvestmentsChart').getContext('2d');
+            if (trendInvestmentsChartObj) trendInvestmentsChartObj.destroy();
+
+            const sortMetric = document.getElementById('trendSortMetric').value;
+
+            const invDataWithIncreases = investments.map(inv => {
+                const start = Number(inv.startValue || inv.value || 0);
+                const current = Number(inv.value || 0);
+                const increase = current - start;
+                const pct = start > 0 ? (increase / start) * 100 : 0;
+                return {
+                    name: inv.name,
+                    increase,
+                    pct
+                };
+            });
+
+            if (sortMetric === 'percent') {
+                invDataWithIncreases.sort((a, b) => b.pct - a.pct);
+            } else {
+                invDataWithIncreases.sort((a, b) => b.increase - a.increase);
+            }
+
+            const invNames = invDataWithIncreases.map(item => item.name);
+            const invValues = sortMetric === 'percent' 
+                ? invDataWithIncreases.map(item => item.pct) 
+                : invDataWithIncreases.map(item => item.increase);
+
+            trendInvestmentsChartObj = new Chart(ctxInv, {
+                type: 'bar',
+                data: {
+                    labels: invNames.length > 0 ? invNames : ['No Investments'],
+                    datasets: [{
+                        label: sortMetric === 'percent' ? 'Percentage Increase (%)' : 'Dollar Increase ($)',
+                        data: invValues.length > 0 ? invValues : [0],
+                        backgroundColor: '#6366f1',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const rawVal = context.raw;
+                                    if (sortMetric === 'percent') {
+                                        const sign = rawVal >= 0 ? '+' : '';
+                                        return ` Increase: ${sign}${rawVal.toFixed(1)}%`;
+                                    } else {
+                                        return ` Increase: $${rawVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: val => sortMetric === 'percent' ? val + '%' : '$' + val.toLocaleString()
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderComparisonAnalytics() {
+            const totalInc = getTotalIncome();
+            const totalExp = getTotalExpenses();
+            const netGain = totalInc - totalExp;
+            const savingsRate = totalInc > 0 ? Math.max(0, (netGain / totalInc) * 100) : 0;
+
+            document.getElementById('compNetGain').innerText = formatCurrency(netGain);
+            document.getElementById('compSavingsRate').innerText = savingsRate.toFixed(1) + '%';
+
+            renderIncomeVsExpenseDollarChart('compIncomeVsExpenseDollarChart');
+
+            const ctxBar = document.getElementById('compAssetBarChart').getContext('2d');
+            const dataVals = INV_CATEGORIES.map(cat => investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0));
+
+            if (compAssetBarChartObj) compAssetBarChartObj.destroy();
+            compAssetBarChartObj = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: INV_CATEGORIES,
+                    datasets: [{
+                        label: 'Value ($)',
+                        data: dataVals,
+                        backgroundColor: '#6366f1',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: val => '$' + val.toLocaleString() }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateProjections() {
+            const yearsInput = document.getElementById('projYears');
+            const returnInput = document.getElementById('projReturn');
+            const deductionInput = document.getElementById('projMonthlyDeduction');
+
+            if (!yearsInput || !returnInput || !deductionInput) return;
+
+            const years = parseInt(yearsInput.value) || 5;
+            const r = parseFloat(returnInput.value) / 100 || 0.07;
+            const n = 12; // Compounded monthly
+            const monthlyWithdrawal = parseFloat(deductionInput.value) || 0;
+
+            document.getElementById('valYears').innerText = years;
+            document.getElementById('valReturn').innerText = (r * 100).toFixed(1) + '%';
+            document.getElementById('projTimelineLabel').innerText = `In ${years} year${years > 1 ? 's' : ''}`;
+
+            const P = getTotalInvestments();
+            const totalContributions = P;
+
+            const labels = ['Now'];
+            const standardVals = [Math.round(P)];
+            const contributionsVals = [Math.round(P)];
+            const cumulativeWithdrawalsVals = [0];
+            const cumulativeInterestVals = [0];
+
+            let cumulativeWithdrawals = 0;
+            let currentBalance = P;
+            let totalInterestGain = 0;
+
+            const months = years * 12;
+
+            for (let m = 1; m <= months; m++) {
+                // Monthly interest earned on current balance
+                const monthlyInterest = currentBalance * (r / n);
+                totalInterestGain += monthlyInterest;
+
+                // Add interest and subtract monthly withdrawal
+                currentBalance = currentBalance + monthlyInterest - monthlyWithdrawal;
+                if (currentBalance < 0) currentBalance = 0;
+
+                if (monthlyWithdrawal > 0) {
+                    cumulativeWithdrawals += monthlyWithdrawal;
+                }
+
+                if (m % 12 === 0 || m === months) {
+                    const yrNum = (m / 12).toFixed(m % 12 === 0 ? 0 : 1);
+                    labels.push(m % 12 === 0 ? `Year ${m / 12}` : `Year ${yrNum}`);
+                    
+                    standardVals.push(Math.round(Math.max(0, currentBalance)));
+                    contributionsVals.push(Math.round(totalContributions));
+                    cumulativeWithdrawalsVals.push(Math.round(cumulativeWithdrawals));
+                    cumulativeInterestVals.push(Math.round(totalInterestGain));
+                }
+            }
+
+            document.getElementById('projFinalValue').innerText = formatCurrency(Math.max(0, currentBalance));
+            document.getElementById('projTotalWithdrawals').innerText = formatCurrency(cumulativeWithdrawals);
+            document.getElementById('projTotalContributions').innerText = formatCurrency(totalContributions);
+            document.getElementById('projTotalInterest').innerText = formatCurrency(totalInterestGain);
+
+            const ctx = document.getElementById('projectionChart').getContext('2d');
+            if (projectionChartObj) projectionChartObj.destroy();
+
+            projectionChartObj = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Projected Value (With Withdrawals) ($)',
+                            data: standardVals,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Principal Contributions ($)',
+                            data: contributionsVals,
+                            borderColor: '#6366f1',
+                            backgroundColor: 'transparent',
+                            borderDash: [5, 5],
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: val => '$' + val.toLocaleString() }
+                        }
+                    }
+                }
+            });
+
+            const ctxW = document.getElementById('projectionWithdrawalsChart').getContext('2d');
+            if (projectionWithdrawalsChartObj) projectionWithdrawalsChartObj.destroy();
+
+            projectionWithdrawalsChartObj = new Chart(ctxW, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Cumulative Withdrawals Total ($)',
+                            data: cumulativeWithdrawalsVals,
+                            borderColor: '#f43f5e',
+                            backgroundColor: 'rgba(244, 63, 94, 0.05)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Compound Interest Gain ($)',
+                            data: cumulativeInterestVals,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: val => '$' + val.toLocaleString() }
+                        }
+                    }
+                }
+            });
+        }
+
+        function resetProjectionParams() {
+            document.getElementById('projYears').value = 5;
+            document.getElementById('projReturn').value = 5;
+            document.getElementById('projMonthlyDeduction').value = 500;
+            updateProjections();
+        }
+
+        /* MODAL CONTROLS */
+        function openInvestmentModal(editIdx = -1) {
+            document.getElementById('investmentModal').classList.remove('hidden');
+            document.getElementById('invEditIndex').value = editIdx;
+            if (editIdx >= 0) {
+                const item = investments[editIdx];
+                document.getElementById('invModalTitle').innerText = 'Edit Investment Asset';
+                document.getElementById('invName').value = item.name;
+                document.getElementById('invCategory').value = item.category;
+                document.getElementById('invStartValue').value = item.startValue || item.value;
+                document.getElementById('invValue').value = item.value;
+                document.getElementById('invDate').value = item.date || new Date().toISOString().split('T')[0];
+                document.getElementById('invNotes').value = item.notes || '';
+            } else {
+                document.getElementById('invModalTitle').innerText = 'Add Investment Asset';
+                document.getElementById('investmentForm').reset();
+                document.getElementById('invDate').value = new Date().toISOString().split('T')[0];
+            }
+        }
+        function closeInvestmentModal() {
+            document.getElementById('investmentModal').classList.add('hidden');
+        }
+        function handleInvestmentSubmit(e) {
+            e.preventDefault();
+            const editIdx = parseInt(document.getElementById('invEditIndex').value);
+            const obj = {
+                name: document.getElementById('invName').value,
+                category: document.getElementById('invCategory').value,
+                startValue: parseFloat(document.getElementById('invStartValue').value) || 0,
+                value: parseFloat(document.getElementById('invValue').value) || 0,
+                date: document.getElementById('invDate').value,
+                notes: document.getElementById('invNotes').value
+            };
+            if (editIdx >= 0) {
+                investments[editIdx] = obj;
+            } else {
+                investments.push(obj);
+            }
+            closeInvestmentModal();
+            initApp();
+        }
+        function deleteInvestment(idx) {
+            investments.splice(idx, 1);
+            initApp();
+        }
+
+        function openExpenseModal(editIdx = -1) {
+            document.getElementById('expenseModal').classList.remove('hidden');
+            document.getElementById('expEditIndex').value = editIdx;
+            if (editIdx >= 0) {
+                const item = expenses[editIdx];
+                document.getElementById('expModalTitle').innerText = 'Edit Monthly Expense';
+                document.getElementById('expTitle').value = item.title;
+                document.getElementById('expCategory').value = item.category;
+                document.getElementById('expAmount').value = item.amount;
+                document.getElementById('expNotes').value = item.notes || '';
+            } else {
+                document.getElementById('expModalTitle').innerText = 'Add Monthly Expense';
+                document.getElementById('expenseForm').reset();
+            }
+        }
+        function closeExpenseModal() {
+            document.getElementById('expenseModal').classList.add('hidden');
+        }
+        function handleExpenseSubmit(e) {
+            e.preventDefault();
+            const editIdx = parseInt(document.getElementById('expEditIndex').value);
+            const obj = {
+                title: document.getElementById('expTitle').value,
+                category: document.getElementById('expCategory').value,
+                amount: parseFloat(document.getElementById('expAmount').value) || 0,
+                notes: document.getElementById('expNotes').value
+            };
+            if (editIdx >= 0) {
+                expenses[editIdx] = obj;
+            } else {
+                expenses.push(obj);
+            }
+            closeExpenseModal();
+            initApp();
+        }
+        function deleteExpense(idx) {
+            expenses.splice(idx, 1);
+            initApp();
+        }
+
+        function openIncomeModal(editIdx = -1) {
+            document.getElementById('incomeModal').classList.remove('hidden');
+            document.getElementById('incEditIndex').value = editIdx;
+            if (editIdx >= 0) {
+                const item = incomes[editIdx];
+                document.getElementById('incModalTitle').innerText = 'Edit Income Source';
+                document.getElementById('incTitle').value = item.title;
+                document.getElementById('incCategory').value = item.category;
+                document.getElementById('incAmount').value = item.amount;
+            } else {
+                document.getElementById('incModalTitle').innerText = 'Add Income Source';
+                document.getElementById('incomeForm').reset();
+            }
+        }
+        function closeIncomeModal() {
+            document.getElementById('incomeModal').classList.add('hidden');
+        }
+        function handleIncomeSubmit(e) {
+            e.preventDefault();
+            const editIdx = parseInt(document.getElementById('incEditIndex').value);
+            const obj = {
+                title: document.getElementById('incTitle').value,
+                category: document.getElementById('incCategory').value,
+                amount: parseFloat(document.getElementById('incAmount').value) || 0
+            };
+            if (editIdx >= 0) {
+                incomes[editIdx] = obj;
+            } else {
+                incomes.push(obj);
+            }
+            closeIncomeModal();
+            initApp();
+        }
+        function deleteIncome(idx) {
+            incomes.splice(idx, 1);
+            initApp();
+        }
+
+        function openResetModal() {
+            document.getElementById('resetModal').classList.remove('hidden');
+        }
+        function closeResetModal() {
+            document.getElementById('resetModal').classList.add('hidden');
+        }
+        function confirmResetData() {
+            localStorage.removeItem('finpulse_investments');
+            localStorage.removeItem('finpulse_incomes');
+            localStorage.removeItem('finpulse_expenses');
+            location.reload();
+        }
+    </script>
+</body>
+</html>
