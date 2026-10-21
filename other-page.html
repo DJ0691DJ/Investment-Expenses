@@ -1,15 +1,9 @@
-<nav style="background: #f4f4f4; padding: 1rem; margin-bottom: 2rem; color: #000000;">
-  <a href="index.html" style="margin-right: 15px; text-decoration: none; font-weight: bold; color: #000000;">Home</a>
-  <a href="finance.html" style="margin-right: 15px; text-decoration: none; font-weight: bold; color: #000000;">Financial Analysis</a>
-  <a href="other-page.html" style="text-decoration: none; font-weight: bold; color: #000000;">ByGraceThroughFaith</a>
-</nav>
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ephesians 2:8 | Grace & Faith Reflection</title>
+    <title>Ephesians 2:8-9 | By Grace Through Faith</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
@@ -98,77 +92,82 @@
     </div>
 
     <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 glass-card border-b border-gold-500/10 px-6 py-4 transition-all duration-300">
+    <header class="sticky top-0 z-50 glass-card border-b border-gold-500/10 px-6 py-3 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 font-bold shadow-lg shadow-gold-500/20">
-                    <svg class="w-5 h-5 text-navy-950 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.5 2h3v5h5v3h-5v12h-3V10h-5V7h5V2z"/>
-                    </svg>
+                <div class="h-24 flex-shrink-0 flex items-center">
+                    <img src="bgtf grraphic.jpg" alt="By Grace Through Faith Logo" class="h-20 w-auto object-contain" onerror="this.src='https://placehold.co/180x72/0f172a/fbbf24?text=BGTF'">
                 </div>
                 <div>
-                    <span class="font-serif text-xl font-bold tracking-wide text-gold-300">BGTF Ephesians 2:8</span>
-                    <span class="block text-xs text-cream-300/70 tracking-widest uppercase">By Grace Through Faith</span>
+                 <span class="font-serif text-base sm:text-lg font-bold tracking-wide text-gold-300 block leading-tight">By Grace Through Faith</span>
+                 <span class="text-[10px] sm:text-xs text-cream-300/70 tracking-widest uppercase">Ephesians 2:8-9</span>
                 </div>
             </div>
             
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-cream-200">
-                <a href="#devotional" class="hover:text-gold-400 transition-colors">What is this?</a>
+                <a href="#whatisthis" class="hover:text-gold-400 transition-colors">What is this?</a>
                 <a href="#whatnext" class="hover:text-gold-400 transition-colors">What next?</a>
                 <a href="#journal" class="hover:text-gold-400 transition-colors">Journal</a>
             </nav>
 
-            <div class="flex items-center space-x-3"></div>
+            <div class="flex md:hidden items-center space-x-4 text-xs">
+                <a href="#whatisthis" class="text-cream-200 hover:text-gold-400">About</a>
+                <a href="#whatnext" class="text-cream-200 hover:text-gold-400">Next</a>
+                <a href="#journal" class="text-cream-200 hover:text-gold-400">Journal</a>
+            </div>
         </div>
     </header>
 
     <!-- Hero / Main Scripture Section -->
-    <section id="verse" class="relative z-10 pt-20 pb-16 px-6 text-center">
+    <section id="verse" class="relative z-10 pt-16 pb-12 px-6 text-center">
         <div class="max-w-4xl mx-auto">
             <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold mb-6">
                 <i class="fa-solid fa-sparkles"></i>
                 <span>The Core of the Gospel</span>
             </div>
 
-            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-cream-50 mb-8 leading-tight">
+            <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-cream-50 mb-6 leading-tight">
                 "For it is by <span class="text-gold-400 underline decoration-gold-500/40 decoration-wavy underline-offset-8">grace</span> you have been saved, through <span class="text-gold-400 underline decoration-gold-500/40 decoration-wavy underline-offset-8">faith</span>..."
             </h1>
 
-            <p class="font-serif italic text-xl sm:text-2xl text-cream-200/90 max-w-2xl mx-auto mb-10">
+            <p class="font-serif italic text-lg sm:text-2xl text-cream-200/90 max-w-2xl mx-auto mb-8">
                 "...and this is not from yourselves, it is the gift of God—not by works, so that no one can boast."
             </p>
 
-            <div class="text-sm font-semibold tracking-wider text-gold-500 uppercase">
+            <div class="text-sm font-semibold tracking-wider text-gold-500 uppercase mb-8">
                 — Ephesians 2:8-9 (NIV)
             </div>
 
-            <!-- Interactive Word Study Cards -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-12">
-                <div onclick="openWordStudy('Grace')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
-                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
-                    <h3 class="font-serif text-xl font-bold text-cream-50">Grace</h3>
-                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Unmerited divine favor</p>
+            <!-- Interactive Word Studies -->
+            <div class="max-w-3xl mx-auto mb-10">
+                <div class="text-xs uppercase tracking-widest font-semibold text-gold-400/80 mb-3">Explore Key Biblical Terms</div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <button onclick="showWordStudy('grace')" class="p-3 rounded-xl glass-card hover:border-gold-400 transition-all text-center group">
+                        <span class="block font-serif font-bold text-gold-300 text-base group-hover:scale-105 transition-transform">Grace</span>
+                        <span class="text-[11px] text-cream-300/70">Charis / Unmerited Favor</span>
+                    </button>
+                    <button onclick="showWordStudy('faith')" class="p-3 rounded-xl glass-card hover:border-gold-400 transition-all text-center group">
+                        <span class="block font-serif font-bold text-gold-300 text-base group-hover:scale-105 transition-transform">Faith</span>
+                        <span class="text-[11px] text-cream-300/70">Pistis / Trust & Conviction</span>
+                    </button>
+                    <button onclick="showWordStudy('gift')" class="p-3 rounded-xl glass-card hover:border-gold-400 transition-all text-center group">
+                        <span class="block font-serif font-bold text-gold-300 text-base group-hover:scale-105 transition-transform">Gift</span>
+                        <span class="text-[11px] text-cream-300/70">Dora / Freely Given</span>
+                    </button>
+                    <button onclick="showWordStudy('works')" class="p-3 rounded-xl glass-card hover:border-gold-400 transition-all text-center group">
+                        <span class="block font-serif font-bold text-gold-300 text-base group-hover:scale-105 transition-transform">Works</span>
+                        <span class="text-[11px] text-cream-300/70">Erga / Human Achievement</span>
+                    </button>
                 </div>
-                <div onclick="openWordStudy('Faith')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
-                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
-                    <h3 class="font-serif text-xl font-bold text-cream-50">Faith</h3>
-                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Trusting reliance in Christ</p>
-                </div>
-                <div onclick="openWordStudy('Gift')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
-                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
-                    <h3 class="font-serif text-xl font-bold text-cream-50">Gift</h3>
-                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Free unearned provision</p>
-                </div>
-                <div onclick="openWordStudy('Not By Works')" class="glass-card p-4 rounded-2xl cursor-pointer hover:border-gold-400 transition-all transform hover:-translate-y-1 text-left">
-                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider block mb-1">Key Term</span>
-                    <h3 class="font-serif text-xl font-bold text-cream-50">Not By Works</h3>
-                    <p class="text-xs text-cream-300 mt-1 line-clamp-1">Excluding human boasting</p>
+                <!-- Word Study Display Box -->
+                <div id="wordStudyBox" class="mt-4 p-5 rounded-2xl bg-navy-900/90 border border-gold-500/30 text-left text-sm text-cream-200 hidden transition-all">
+                    <!-- Populated via JS -->
                 </div>
             </div>
 
-            <div class="mt-10 flex flex-wrap justify-center gap-4">
+            <div class="flex flex-wrap justify-center gap-4">
                 <button onclick="scrollToSection('devotional')" class="px-6 py-3 rounded-xl bg-navy-800/80 border border-gold-500/30 text-gold-300 font-semibold shadow-lg hover:border-gold-400 transition-all transform hover:-translate-y-0.5">
-                    <i class="fa-solid fa-book-bible mr-2"></i> Read Devotional
+                    <i class="fa-solid fa-book-bible mr-2"></i> Read the explanation
                 </button>
                 <button onclick="scrollToSection('whatnext')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-navy-950 font-semibold shadow-lg shadow-gold-500/20 hover:from-gold-400 hover:to-gold-500 transition-all transform hover:-translate-y-0.5">
                     <i class="fa-solid fa-compass mr-2"></i> What Next?
@@ -178,7 +177,7 @@
     </section>
 
     <!-- 4-Paragraph Devotional Message on By Grace Through Faith -->
-    <section id="devotional" class="relative z-10 pt-16 pb-8 px-6 max-w-4xl mx-auto">
+    <section id="devotional" class="relative z-10 py-12 px-6 max-w-4xl mx-auto">
         <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-8">
             <div class="text-center space-y-3">
                 <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
@@ -205,8 +204,27 @@
         </div>
     </section>
 
-    <!-- "What Next?" Section with 2-Paragraph Statement and 3 Resource Links -->
-    <section id="whatnext" class="relative z-10 py-16 px-6 max-w-4xl mx-auto">
+    <!-- "What is this?" Section -->
+    <section id="whatisthis" class="relative z-10 py-12 px-6 max-w-4xl mx-auto">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-6 bg-navy-900/60">
+            <div class="text-center space-y-3">
+                <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Theological Context</span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cream-50">What is Ephesians 2:8?</h2>
+            </div>
+            <p class="text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
+                Ephesians 2:8 is widely considered one of the most concise and powerful summaries of the Gospel in the entire New Testament. Written by the Apostle Paul to the believers in Ephesus, this passage addresses the fundamental shift from spiritual death to new life in Christ. Paul emphasizes that salvation is entirely God's initiative, designed to magnify His boundless mercy rather than human capability.
+            </p>
+            <p class="text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
+                By stripping away the illusion that we can save ourselves through good deeds, Paul levels the playing field for all humanity. Whether someone considers themselves highly moral or deeply flawed, everyone enters God's family through the exact same doorway: receiving His unearned grace through trusting faith.
+            </p>
+        </div>
+    </section>
+
+    <!-- "What Next?" Section with How to Be Saved & Resource Links -->
+    <section id="whatnext" class="relative z-10 py-12 px-6 max-w-4xl mx-auto">
         <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-8 bg-gradient-to-b from-navy-900/80 to-navy-950/90">
             <div class="text-center space-y-3">
                 <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
@@ -223,38 +241,49 @@
                 <p>
                     You can make this decision today through a sincere prayer of faith, speaking directly to God from your heart. Confess that you trust in Jesus alone as your Lord and Savior, thanking Him for the grace that cleanses and redeems you. Once you have placed your faith in Him, your next steps involve growing in this relationship: immerse yourself in God's Word through the Bible, talk to Him daily in prayer, and connect with a community of fellow believers where you can learn, worship, and walk in love together. This marks the beginning of an eternal journey of peace, purpose, and unending grace.
                 </p>
+            </div>
+
+            <!-- External Resource Links Stacked Vertically -->
+            <div class="pt-6 border-t border-gold-500/20 space-y-3">
+                <h3 class="text-xs font-semibold text-gold-400 uppercase tracking-wider mb-4 text-center">Helpful Resources & Next Steps</h3>
                 
-                <div class="pt-6 border-t border-gold-500/20 space-y-3">
-                    <h4 class="font-serif text-lg font-bold text-gold-300">Helpful Resources & Next Steps:</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li>
-                            <a href="https://peacewithgod.net/steps/?pk_vid=ff340c62b3f8ce071792344107463cf3" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Peace With God - Steps to Peace with God
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.gotquestions.org/how-can-I-be-saved.html" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> GotQuestions - How can I be saved?
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.desiringgod.org/interviews/what-must-i-believe-to-be-saved" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Desiring God - What must I believe to be saved?
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.peacechurch.cc/roundthetable" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 underline underline-offset-4 flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Peace Church - Round the Table
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <a href="https://peacewithgod.net/steps/?pk_vid=ff340c62b3f8ce071792344107463cf3" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-navy-950/80 border border-gold-500/30 text-cream-100 hover:border-gold-400 hover:bg-navy-900 transition-all group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gold-400"></i>
+                        <span class="font-medium text-sm">Peace With God — Steps to Peace with God</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400/60 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+
+                <a href="https://www.gotquestions.org/how-can-I-be-saved.html" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-navy-950/80 border border-gold-500/30 text-cream-100 hover:border-gold-400 hover:bg-navy-900 transition-all group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gold-400"></i>
+                        <span class="font-medium text-sm">Got Questions — How can I be saved?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400/60 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+
+                <a href="https://www.desiringgod.org/interviews/what-must-i-believe-to-be-saved" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-navy-950/80 border border-gold-500/30 text-cream-100 hover:border-gold-400 hover:bg-navy-900 transition-all group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gold-400"></i>
+                        <span class="font-medium text-sm">Desiring God — What must I believe to be saved?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400/60 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+
+                <a href="https://www.peacechurch.cc/roundthetable" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-navy-950/80 border border-gold-500/30 text-cream-100 hover:border-gold-400 hover:bg-navy-900 transition-all group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gold-400"></i>
+                        <span class="font-medium text-sm">Peace Church — Round the Table</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400/60 group-hover:translate-x-1 transition-transform"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Personal Reflection Journal Section -->
-    <section id="journal" class="relative z-10 py-16 px-6 bg-navy-900/50 border-t border-gold-500/10">
+    <section id="journal" class="relative z-10 py-12 px-6 bg-navy-900/50 border-t border-gold-500/10">
         <div class="max-w-3xl mx-auto">
             <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl">
                 <div class="flex items-center space-x-3 mb-6">
@@ -301,10 +330,7 @@
     <footer class="relative z-10 glass-card border-t border-gold-500/10 py-12 px-6 text-center text-cream-300 text-sm">
         <div class="max-w-4xl mx-auto space-y-4">
             <div class="flex items-center justify-center space-x-2 text-gold-400 font-serif text-lg font-bold">
-                <svg class="w-4 h-4 text-gold-400 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.5 2h3v5h5v3h-5v12h-3V10h-5V7h5V2z"/>
-                </svg>
-                <span>BGTF Ephesians 2:8 Sanctuary</span>
+                <span>By Grace Through Faith</span>
             </div>
             <p class="text-xs text-cream-300/80 max-w-md mx-auto">
                 "For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God."
@@ -314,21 +340,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Word Study Modal -->
-    <div id="wordStudyModal" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
-        <div class="glass-card p-8 rounded-3xl border border-gold-500/40 max-w-lg w-full mx-4 space-y-4 shadow-2xl transform scale-95 transition-transform duration-300" id="wordStudyBox">
-            <div class="flex justify-between items-center">
-                <span id="modalWordSubtitle" class="text-xs font-semibold text-gold-400 uppercase tracking-wider">Word Study</span>
-                <button onclick="closeWordStudy()" class="text-cream-300 hover:text-gold-400 text-lg"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <h3 id="modalWordTitle" class="font-serif text-3xl font-bold text-cream-50">Grace</h3>
-            <p id="modalWordDefinition" class="text-sm sm:text-base text-cream-200/90 leading-relaxed font-sans"></p>
-            <button onclick="closeWordStudy()" class="w-full py-3 bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold text-sm rounded-xl transition-all shadow-md mt-4">
-                Close Study
-            </button>
-        </div>
-    </div>
 
     <!-- Custom Message Box Modal -->
     <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
@@ -354,37 +365,39 @@
             }
         }
 
-        // --- WORD STUDY MODAL DATA ---
-        const wordStudies = {
-            'Grace': 'Greek: χάρις (Charis). Grace is unmerited, unearned divine favor and loving-kindness shown to those who deserve judgment. It is the initiating motive behind our salvation.',
-            'Faith': 'Greek: πίστις (Pistis). Faith is not merely mental agreement, but active trust, reliance, and personal commitment to Jesus Christ as Lord and Savior.',
-            'Gift': 'Greek: δῶρον (Doron). A gift is something freely given without expectation of payment or repayment. Salvation cannot be bought or earned through good deeds; it is fully provided by God.',
-            'Not By Works': 'Greek: οὐκ ἐξ ἔργων (Ouk ex ergon). Highlights that human religious performance, rituals, or moral striving contribute nothing toward earning divine forgiveness, preventing any human boasting.'
+        // --- WORD STUDIES ---
+        const wordData = {
+            grace: {
+                title: "Grace (Greek: Charis)",
+                text: "Charis denotes unmerited favor, lovingkindness, and divine assistance given freely to people who neither earned nor deserve it. In Ephesians 2:8, grace is the fountainhead of salvation."
+            },
+            faith: {
+                title: "Faith (Greek: Pistis)",
+                text: "Pistis means firm persuasion, conviction, and active trust. It is the open hand that receives God's gift. True faith rests entirely upon the finished work of Jesus Christ."
+            },
+            gift: {
+                title: "Gift (Greek: Doron)",
+                text: "Doron signifies a present freely given without obligation or expectation of repayment. Because salvation is a gift, it cannot be bought, worked for, or traded."
+            },
+            works: {
+                title: "Works (Greek: Erga)",
+                text: "Erga refers to human deeds, religious rituals, or moral efforts. Paul explicitly excludes works from the equation of salvation so that no human can boast before God."
+            }
         };
 
-        function openWordStudy(word) {
-            document.getElementById('modalWordTitle').innerText = word;
-            document.getElementById('modalWordDefinition').innerText = wordStudies[word] || '';
-            
-            const modal = document.getElementById('wordStudyModal');
+        function showWordStudy(word) {
             const box = document.getElementById('wordStudyBox');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                box.classList.remove('scale-95');
-                box.classList.add('scale-100');
-            }, 10);
-        }
+            const data = wordData[word];
+            if(!data) return;
 
-        function closeWordStudy() {
-            const modal = document.getElementById('wordStudyModal');
-            const box = document.getElementById('wordStudyBox');
-            modal.classList.add('opacity-0');
-            box.classList.remove('scale-100');
-            box.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            box.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-serif font-bold text-gold-300 text-lg">${data.title}</h4>
+                    <button onclick="document.getElementById('wordStudyBox').classList.add('hidden')" class="text-cream-300 hover:text-gold-400 text-xs"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <p class="text-sm text-cream-200/90 leading-relaxed">${data.text}</p>
+            `;
+            box.classList.remove('hidden');
         }
 
         // --- JOURNAL LOCALSTORAGE MANAGEMENT ---
@@ -446,7 +459,7 @@
             
             const modal = document.getElementById('customModal');
             const box = document.getElementById('modalContentBox');
-            modal.classList.remove('hidden');
+            modal.classList.net ? null : modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 box.classList.remove('scale-95');
