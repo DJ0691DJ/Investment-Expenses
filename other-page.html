@@ -166,7 +166,7 @@
             </div>
 
             <div class="flex flex-wrap justify-center gap-4">
-                <button onclick="scrollToSection('devotional')" class="px-6 py-3 rounded-xl bg-navy-800/80 border border-gold-500/30 text-gold-300 font-semibold shadow-lg hover:border-gold-400 transition-all transform hover:-translate-y-0.5">
+                <button onclick="scrollToSection('whatisthis')" class="px-6 py-3 rounded-xl bg-navy-800/80 border border-gold-500/30 text-gold-300 font-semibold shadow-lg hover:border-gold-400 transition-all transform hover:-translate-y-0.5">
                     <i class="fa-solid fa-book-bible mr-2"></i> Read the explanation
                 </button>
                 <button onclick="scrollToSection('whatnext')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-navy-950 font-semibold shadow-lg shadow-gold-500/20 hover:from-gold-400 hover:to-gold-500 transition-all transform hover:-translate-y-0.5">
@@ -176,13 +176,34 @@
         </div>
     </section>
 
-    <!-- 4-Paragraph Devotional Message on By Grace Through Faith -->
+    <!-- "What is this?" Section (Theological Context - Moved Before Devotional) -->
+    <section id="whatisthis" class="relative z-10 py-12 px-6 max-w-4xl mx-auto">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-6 bg-navy-900/60">
+            <div class="text-center space-y-3">
+                <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>The Explanation</span>
+            </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cream-50">What is Ephesians 2:8?</h2>
+            </div>
+            <p class="text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
+                Ephesians 2:8 is widely considered one of the most concise and powerful summaries of the Gospel in the entire New Testament. Written by the Apostle Paul to the believers in Ephesus, this passage addresses the fundamental shift from spiritual death to new life in Christ. Paul emphasizes that salvation is entirely God's initiative, designed to magnify His boundless mercy rather than human capability.
+            </p>
+            <p class="text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
+                By stripping away the illusion that we can save ourselves through good deeds, Paul levels the playing field for all humanity. Whether someone considers themselves highly moral or deeply flawed, everyone enters God's family through the exact same doorway: receiving His unearned grace through trusting faith.
+            </p>
+            <p class="text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
+                Reed more below...
+        </div>
+    </section>
+
+    <!-- 4-Paragraph Devotional Message on By Grace Through Faith (Spiritual Reflection) -->
     <section id="devotional" class="relative z-10 py-12 px-6 max-w-4xl mx-auto">
         <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-8">
             <div class="text-center space-y-3">
                 <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
                     <i class="fa-solid fa-feather-pointed"></i>
-                    <span>Spiritual Reflection</span>
+                    <span>Good Stuff</span>
                 </div>
                 <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cream-50">The Wonder of Grace Through Faith</h2>
             </div>
@@ -204,32 +225,13 @@
         </div>
     </section>
 
-    <!-- "What is this?" Section -->
-    <section id="whatisthis" class="relative z-10 py-12 px-6 max-w-4xl mx-auto">
-        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-6 bg-navy-900/60">
-            <div class="text-center space-y-3">
-                <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
-                    <i class="fa-solid fa-circle-question"></i>
-                    <span>Theological Context</span>
-                </div>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cream-50">What is Ephesians 2:8?</h2>
-            </div>
-            <p class="text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
-                Ephesians 2:8 is widely considered one of the most concise and powerful summaries of the Gospel in the entire New Testament. Written by the Apostle Paul to the believers in Ephesus, this passage addresses the fundamental shift from spiritual death to new life in Christ. Paul emphasizes that salvation is entirely God's initiative, designed to magnify His boundless mercy rather than human capability.
-            </p>
-            <p class="text-cream-200/90 font-sans leading-relaxed text-base sm:text-lg">
-                By stripping away the illusion that we can save ourselves through good deeds, Paul levels the playing field for all humanity. Whether someone considers themselves highly moral or deeply flawed, everyone enters God's family through the exact same doorway: receiving His unearned grace through trusting faith.
-            </p>
-        </div>
-    </section>
-
     <!-- "What Next?" Section with How to Be Saved & Resource Links -->
     <section id="whatnext" class="relative z-10 py-12 px-6 max-w-4xl mx-auto">
         <div class="glass-card p-8 sm:p-12 rounded-3xl border border-gold-500/30 shadow-2xl space-y-8 bg-gradient-to-b from-navy-900/80 to-navy-950/90">
             <div class="text-center space-y-3">
                 <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
                     <i class="fa-solid fa-route"></i>
-                    <span>Your Spiritual Journey</span>
+                    <span>Next Steps</span>
                 </div>
                 <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cream-50">What Next? How to Receive God's Salvation</h2>
             </div>
