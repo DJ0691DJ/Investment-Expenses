@@ -47,12 +47,12 @@
                     <p class="text-xs text-indigo-900 font-bold">>DO THIS: Remove or replace the demo data and add your own data under each tab by clicking the add button</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-3">
-                <button onclick="openResetModal()" class="inline-flex items-center space-x-1 px-3 py-1.5 border border-slate-300 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition">
-                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                    <span class="hidden sm:inline">Reset Demo Data</span>
-                </button>
-            </div>
+            <div class="data-backup-toolbar" style="margin: 15px 0; display: flex; gap: 10px; align-items: center;">
+            <button id="exportBtn" onclick="exportFinancialData()" style="background-color: #2b7a78; color: white; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer;">Save your input data</button>
+            <label for="importFile" style="background-color: transparent; color: black; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; display: inline-block; font-size: 0.8rem;">
+                Import older backup data
+            </label>
+           <input type="file" id="importFile" accept=".json" onchange="importFinancialData(event)" style="display: none;">
         </div>
     </header>
 
@@ -213,7 +213,7 @@
                         <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Total Financial Net Worth</div>
                         <div id="invPortfolioTotalNetWorth" class="text-lg font-bold text-emerald-600">$0.00</div>
                     </div>
-                    <button onclick="openInvestmentModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 shadow-sm transition">
+                    <button onclick="openInvestmentModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 shadow-sm transition cursor-pointer">
                         <i data-lucide="plus" class="w-4 h-4"></i>
                         <span>Add Investment</span>
                     </button>
@@ -265,7 +265,7 @@
                     <h2 class="text-xl font-bold text-slate-900">Monthly Expense Tracker</h2>
                     <p class="text-sm text-slate-500">Record and categorize recurring monthly expenses, including Housing, Cash Withdraw, Monthly Dues, Insurance, Credit Card, Hobbies, Taxes, Projects, Vacations, Medical, Pet, and Child.</p>
                 </div>
-                <button onclick="openExpenseModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-rose-600 text-white font-medium rounded-xl hover:bg-rose-700 shadow-sm transition">
+                <button onclick="openExpenseModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-rose-600 text-white font-medium rounded-xl hover:bg-rose-700 shadow-sm transition cursor-pointer">
                     <i data-lucide="plus" class="w-4 h-4"></i>
                     <span>Add Monthly Expense</span>
                 </button>
@@ -339,7 +339,7 @@
                     <h2 class="text-xl font-bold text-slate-900">Income Sources</h2>
                     <p class="text-sm text-slate-500">Track regular monthly earnings, salary, social security, disability, and side-hustles.</p>
                 </div>
-                <button onclick="openIncomeModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 shadow-sm transition">
+                <button onclick="openIncomeModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 shadow-sm transition cursor-pointer">
                     <i data-lucide="plus" class="w-4 h-4"></i>
                     <span>Add Income Source</span>
                 </button>
@@ -499,7 +499,7 @@
                     <h2 class="text-xl font-bold text-slate-900">Future Projections & Wealth Forecasting</h2>
                     <p class="text-sm text-slate-500">Project investment growth and net worth into the future (1, 3, 5, and 10 years).</p>
                 </div>
-                <button onclick="resetProjectionParams()" class="inline-flex items-center space-x-1 px-3 py-1.5 border border-slate-300 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50">
+                <button onclick="resetProjectionParams()" class="inline-flex items-center space-x-1 px-3 py-1.5 border border-slate-300 text-xs font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 cursor-pointer">
                     <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
                     <span>Reset Defaults</span>
                 </button>
@@ -573,7 +573,7 @@
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 space-y-4">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <h3 id="invModalTitle" class="text-lg font-bold text-slate-900">Add Investment Asset</h3>
-                <button onclick="closeInvestmentModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                <button onclick="closeInvestmentModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -614,8 +614,8 @@
                 </div>
 
                 <div class="flex justify-end space-x-3 pt-2">
-                    <button type="button" onclick="closeInvestmentModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700">Save Investment</button>
+                    <button type="button" onclick="closeInvestmentModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50 cursor-pointer">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 cursor-pointer">Save Investment</button>
                 </div>
             </form>
         </div>
@@ -626,7 +626,7 @@
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 space-y-4">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <h3 id="expModalTitle" class="text-lg font-bold text-slate-900">Add Monthly Expense</h3>
-                <button onclick="closeExpenseModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                <button onclick="closeExpenseModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -669,8 +669,8 @@
                     <textarea id="expNotes" rows="2" placeholder="Optional details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm"></textarea>
                 </div>
                 <div class="flex justify-end space-x-3 pt-2">
-                    <button type="button" onclick="closeExpenseModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-rose-600 text-white text-sm font-medium rounded-xl hover:bg-rose-700">Save Monthly Expense</button>
+                    <button type="button" onclick="closeExpenseModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50 cursor-pointer">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-rose-600 text-white text-sm font-medium rounded-xl hover:bg-rose-700 cursor-pointer">Save Monthly Expense</button>
                 </div>
             </form>
         </div>
@@ -681,7 +681,7 @@
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 space-y-4">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <h3 id="incModalTitle" class="text-lg font-bold text-slate-900">Add Income Source</h3>
-                <button onclick="closeIncomeModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                <button onclick="closeIncomeModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -707,25 +707,10 @@
                     <input type="number" step="0.01" id="incAmount" required placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
                 </div>
                 <div class="flex justify-end space-x-3 pt-2">
-                    <button type="button" onclick="closeIncomeModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-xl hover:bg-emerald-700">Save Income</button>
+                    <button type="button" onclick="closeIncomeModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50 cursor-pointer">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-xl hover:bg-emerald-700 cursor-pointer">Save Income</button>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <!-- RESET MODAL -->
-    <div id="resetModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-100 space-y-4">
-            <div class="flex items-center space-x-3 text-amber-600">
-                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
-                <h3 class="text-lg font-bold text-slate-900">Reset Demo Data?</h3>
-            </div>
-            <p class="text-sm text-slate-500">This will restore sample data with the 6 required investment categories, monthly expenses, and income sources.</p>
-            <div class="flex justify-end space-x-3 pt-2">
-                <button onclick="closeResetModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl">Cancel</button>
-                <button onclick="confirmResetData()" class="px-4 py-2 bg-amber-600 text-white text-sm font-medium rounded-xl">Reset Data</button>
-            </div>
         </div>
     </div>
 
@@ -905,7 +890,9 @@
         }
 
         function renderCategoryDonutChart() {
-            const ctx = document.getElementById('categoryDonutChart').getContext('2d');
+            const canvasEl = document.getElementById('categoryDonutChart');
+            if (!canvasEl) return;
+            const ctx = canvasEl.getContext('2d');
             const dataVals = INV_CATEGORIES.map(cat => investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0));
 
             if (categoryDonutChartObj) categoryDonutChartObj.destroy();
@@ -937,26 +924,31 @@
             if (netWorthEl) netWorthEl.innerText = formatCurrency(totalNetWorth);
 
             const container = document.getElementById('investmentCategoryCards');
-            container.innerHTML = INV_CATEGORIES.map(cat => {
-                const total = investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0);
-                return `
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
-                        <span class="text-[11px] font-semibold text-indigo-600 uppercase tracking-wider block truncate">${cat}</span>
-                        <h4 class="text-lg font-bold text-slate-900 mt-1">${formatCurrency(total)}</h4>
-                    </div>
-                `;
-            }).join('');
+            if (container) {
+                container.innerHTML = INV_CATEGORIES.map(cat => {
+                    const total = investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0);
+                    return `
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+                            <span class="text-[11px] font-semibold text-indigo-600 uppercase tracking-wider block truncate">${cat}</span>
+                            <h4 class="text-lg font-bold text-slate-900 mt-1">${formatCurrency(total)}</h4>
+                        </div>
+                    `;
+                }).join('');
+            }
             renderInvestmentsTable();
         }
 
         function renderInvestmentsTable() {
-            const filter = document.getElementById('filterInvCategory').value;
+            const filterEl = document.getElementById('filterInvCategory');
+            const filter = filterEl ? filterEl.value : 'ALL';
             const filtered = filter === 'ALL' ? [...investments] : investments.filter(i => i.category === filter);
 
             filtered.sort((a, b) => Number(b.value || 0) - Number(a.value || 0));
 
-            document.getElementById('invCountText').innerText = `Showing ${filtered.length} investment(s)`;
+            const countText = document.getElementById('invCountText');
+            if (countText) countText.innerText = `Showing ${filtered.length} investment(s)`;
             const tbody = document.getElementById('investmentsTableBody');
+            if (!tbody) return;
 
             tbody.innerHTML = filtered.map((inv) => {
                 const startVal = Number(inv.startValue || inv.value || 0);
@@ -982,8 +974,8 @@
                         </td>
                         <td class="p-4 text-slate-500 text-xs">${inv.date || 'N/A'}</td>
                         <td class="p-4 text-right space-x-2">
-                            <button onclick="openInvestmentModal(${investments.indexOf(inv)})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                            <button onclick="deleteInvestment(${investments.indexOf(inv)})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                            <button onclick="openInvestmentModal(${investments.indexOf(inv)})" class="text-slate-400 hover:text-indigo-600 p-1 cursor-pointer"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                            <button onclick="deleteInvestment(${investments.indexOf(inv)})" class="text-slate-400 hover:text-rose-600 p-1 cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                         </td>
                     </tr>
                 `;
@@ -1012,11 +1004,13 @@
             }
             document.getElementById('expTopCat').innerText = topCat !== 'None' ? `${topCat} (${formatCurrency(maxAmt)})` : 'None';
 
-            const filter = document.getElementById('filterExpCategory').value;
+            const filterEl = document.getElementById('filterExpCategory');
+            const filter = filterEl ? filterEl.value : 'ALL';
             const filtered = filter === 'ALL' ? [...expenses] : expenses.filter(e => e.category === filter);
 
             document.getElementById('expCountText').innerText = `Showing ${filtered.length} expense(s)`;
             const tbody = document.getElementById('expensesTableBody');
+            if (!tbody) return;
 
             tbody.innerHTML = filtered.map((exp) => {
                 const realIdx = expenses.indexOf(exp);
@@ -1029,13 +1023,17 @@
                         <td class="p-4"><span class="px-2.5 py-1 text-xs bg-rose-50 text-rose-700 rounded-lg font-medium">${exp.category}</span></td>
                         <td class="p-4 font-bold text-rose-600">${formatCurrency(exp.amount)}</td>
                         <td class="p-4 text-right space-x-2">
-                            <button onclick="openExpenseModal(${realIdx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                            <button onclick="deleteExpense(${realIdx})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                            <button onclick="openExpenseModal(${realIdx})" class="text-slate-400 hover:text-indigo-600 p-1 cursor-pointer"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                            <button onclick="deleteExpense(${realIdx})" class="text-slate-400 hover:text-rose-600 p-1 cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                         </td>
                     </tr>
                 `;
             }).join('') || `<tr><td colspan="4" class="p-6 text-center text-slate-400">No monthly expenses found</td></tr>`;
             lucide.createIcons();
+        }
+
+        function renderExpensesTable() {
+            renderExpenses();
         }
 
         function renderIncome() {
@@ -1046,14 +1044,15 @@
             document.getElementById('incTotalCount').innerText = incomes.length;
 
             const tbody = document.getElementById('incomeTableBody');
+            if (!tbody) return;
             tbody.innerHTML = incomes.map((inc, idx) => `
                 <tr class="hover:bg-slate-50/55 transition">
                     <td class="p-4 font-bold text-slate-900">${inc.title}</td>
                     <td class="p-4"><span class="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-700 rounded-lg font-medium">${inc.category}</span></td>
                     <td class="p-4 font-bold text-emerald-600">${formatCurrency(inc.amount)}</td>
                     <td class="p-4 text-right space-x-2">
-                        <button onclick="openIncomeModal(${idx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                        <button onclick="deleteIncome(${idx})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        <button onclick="openIncomeModal(${idx})" class="text-slate-400 hover:text-indigo-600 p-1 cursor-pointer"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                        <button onclick="deleteIncome(${idx})" class="text-slate-400 hover:text-rose-600 p-1 cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                     </td>
                 </tr>
             `).join('') || `<tr><td colspan="4" class="p-6 text-center text-slate-400">No income sources added</td></tr>`;
@@ -1061,7 +1060,8 @@
         }
 
         function renderTrendsCharts() {
-            const monthsCount = parseInt(document.getElementById('trendTimeHorizon').value) || 12;
+            const horizonEl = document.getElementById('trendTimeHorizon');
+            const monthsCount = horizonEl ? parseInt(horizonEl.value) || 12 : 12;
             const labels = [];
             const netWorthData = [];
             const cashFlowInc = [];
@@ -1081,110 +1081,115 @@
                 cashFlowExp.push(totalExp);
             }
 
-            document.getElementById('trendAvgInc').innerText = formatCurrency(totalInc);
-            document.getElementById('trendAvgExp').innerText = formatCurrency(totalExp);
-            document.getElementById('trendNetGrowth').innerText = `+${(monthsCount * 1.5).toFixed(1)}%`;
+            const avgIncEl = document.getElementById('trendAvgInc');
+            if (avgIncEl) avgIncEl.innerText = formatCurrency(totalInc);
+            const avgExpEl = document.getElementById('trendAvgExp');
+            if (avgExpEl) avgExpEl.innerText = formatCurrency(totalExp);
+            const netGrowthEl = document.getElementById('trendNetGrowth');
+            if (netGrowthEl) netGrowthEl.innerText = `+${(monthsCount * 1.5).toFixed(1)}%`;
 
-            const ctxNet = document.getElementById('trendNetWorthChart').getContext('2d');
-            if (trendNetWorthChartObj) trendNetWorthChartObj.destroy();
-            trendNetWorthChartObj = new Chart(ctxNet, {
-                type: 'line',
-                data: {
-                    labels,
-                    datasets: [{
-                        label: 'Net Worth ($)',
-                        data: netWorthData,
-                        borderColor: '#6366f1',
-                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-
-            const ctxCF = document.getElementById('trendCashFlowChart').getContext('2d');
-            if (trendCashFlowChartObj) trendCashFlowChartObj.destroy();
-            trendCashFlowChartObj = new Chart(ctxCF, {
-                type: 'bar',
-                data: {
-                    labels,
-                    datasets: [
-                        { label: 'Income', data: cashFlowInc, backgroundColor: '#10b981', borderRadius: 4 },
-                        { label: 'Expenses', data: cashFlowExp, backgroundColor: '#f43f5e', borderRadius: 4 }
-                    ]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-
-            const ctxInv = document.getElementById('trendInvestmentsChart').getContext('2d');
-            if (trendInvestmentsChartObj) trendInvestmentsChartObj.destroy();
-
-            const sortMetric = document.getElementById('trendSortMetric').value;
-
-            const invDataWithIncreases = investments.map(inv => {
-                const start = Number(inv.startValue || inv.value || 0);
-                const current = Number(inv.value || 0);
-                const increase = current - start;
-                const pct = start > 0 ? (increase / start) * 100 : 0;
-                return {
-                    name: inv.name,
-                    increase,
-                    pct
-                };
-            });
-
-            if (sortMetric === 'percent') {
-                invDataWithIncreases.sort((a, b) => b.pct - a.pct);
-            } else {
-                invDataWithIncreases.sort((a, b) => b.increase - a.increase);
+            const nwCanvas = document.getElementById('trendNetWorthChart');
+            if (nwCanvas) {
+                const ctxNet = nwCanvas.getContext('2d');
+                if (trendNetWorthChartObj) trendNetWorthChartObj.destroy();
+                trendNetWorthChartObj = new Chart(ctxNet, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Net Worth ($)',
+                            data: netWorthData,
+                            borderColor: '#6366f1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
             }
 
-            const invNames = invDataWithIncreases.map(item => item.name);
-            const invValues = sortMetric === 'percent' 
-                ? invDataWithIncreases.map(item => item.pct) 
-                : invDataWithIncreases.map(item => item.increase);
+            const cfCanvas = document.getElementById('trendCashFlowChart');
+            if (cfCanvas) {
+                const ctxCF = cfCanvas.getContext('2d');
+                if (trendCashFlowChartObj) trendCashFlowChartObj.destroy();
+                trendCashFlowChartObj = new Chart(ctxCF, {
+                    type: 'bar',
+                    data: {
+                        labels,
+                        datasets: [
+                            { label: 'Income', data: cashFlowInc, backgroundColor: '#10b981', borderRadius: 4 },
+                            { label: 'Expenses', data: cashFlowExp, backgroundColor: '#f43f5e', borderRadius: 4 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
 
-            trendInvestmentsChartObj = new Chart(ctxInv, {
-                type: 'bar',
-                data: {
-                    labels: invNames.length > 0 ? invNames : ['No Investments'],
-                    datasets: [{
-                        label: sortMetric === 'percent' ? 'Percentage Increase (%)' : 'Dollar Increase ($)',
-                        data: invValues.length > 0 ? invValues : [0],
-                        backgroundColor: '#6366f1',
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const rawVal = context.raw;
-                                    if (sortMetric === 'percent') {
-                                        const sign = rawVal >= 0 ? '+' : '';
-                                        return ` Increase: ${sign}${rawVal.toFixed(1)}%`;
-                                    } else {
-                                        return ` Increase: $${rawVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            const invCanvas = document.getElementById('trendInvestmentsChart');
+            if (invCanvas) {
+                const ctxInv = invCanvas.getContext('2d');
+                if (trendInvestmentsChartObj) trendInvestmentsChartObj.destroy();
+
+                const sortMetricEl = document.getElementById('trendSortMetric');
+                const sortMetric = sortMetricEl ? sortMetricEl.value : 'amount';
+
+                const invDataWithIncreases = investments.map(inv => {
+                    const start = Number(inv.startValue || inv.value || 0);
+                    const current = Number(inv.value || 0);
+                    const increase = current - start;
+                    const pct = start > 0 ? (increase / start) * 100 : 0;
+                    return {
+                        name: inv.name,
+                        increase,
+                        pct
+                    };
+                });
+
+                if (sortMetric === 'percent') {
+                    invDataWithIncreases.sort((a, b) => b.pct - a.pct);
+                } else {
+                    invDataWithIncreases.sort((a, b) => b.increase - a.increase);
+                }
+
+                const invNames = invDataWithIncreases.map(item => item.name);
+                const invValues = sortMetric === 'percent' 
+                    ? invDataWithIncreases.map(item => item.pct) 
+                    : invDataWithIncreases.map(item => item.increase);
+
+                trendInvestmentsChartObj = new Chart(ctxInv, {
+                    type: 'doughnut',
+                    data: {
+                        labels: invNames.length > 0 ? invNames : ['No Investments'],
+                        datasets: [{
+                            data: invValues.length > 0 ? invValues : [0],
+                            backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#6366f1'],
+                            borderWidth: 2,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const rawVal = context.raw;
+                                        if (sortMetric === 'percent') {
+                                            const sign = rawVal >= 0 ? '+' : '';
+                                            return ` Increase: ${sign}${rawVal.toFixed(1)}%`;
+                                        } else {
+                                            return ` Increase: $${rawVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                                        }
                                     }
                                 }
                             }
                         }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: val => sortMetric === 'percent' ? val + '%' : '$' + val.toLocaleString()
-                            }
-                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         function renderComparisonAnalytics() {
@@ -1193,38 +1198,43 @@
             const netGain = totalInc - totalExp;
             const savingsRate = totalInc > 0 ? Math.max(0, (netGain / totalInc) * 100) : 0;
 
-            document.getElementById('compNetGain').innerText = formatCurrency(netGain);
-            document.getElementById('compSavingsRate').innerText = savingsRate.toFixed(1) + '%';
+            const netGainEl = document.getElementById('compNetGain');
+            if (netGainEl) netGainEl.innerText = formatCurrency(netGain);
+            const savingsRateEl = document.getElementById('compSavingsRate');
+            if (savingsRateEl) savingsRateEl.innerText = savingsRate.toFixed(1) + '%';
 
             renderIncomeVsExpenseDollarChart('compIncomeVsExpenseDollarChart');
 
-            const ctxBar = document.getElementById('compAssetBarChart').getContext('2d');
-            const dataVals = INV_CATEGORIES.map(cat => investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0));
+            const barCanvas = document.getElementById('compAssetBarChart');
+            if (barCanvas) {
+                const ctxBar = barCanvas.getContext('2d');
+                const dataVals = INV_CATEGORIES.map(cat => investments.filter(i => i.category === cat).reduce((sum, i) => sum + Number(i.value), 0));
 
-            if (compAssetBarChartObj) compAssetBarChartObj.destroy();
-            compAssetBarChartObj = new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: INV_CATEGORIES,
-                    datasets: [{
-                        label: 'Value ($)',
-                        data: dataVals,
-                        backgroundColor: '#6366f1',
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { callback: val => '$' + val.toLocaleString() }
+                if (compAssetBarChartObj) compAssetBarChartObj.destroy();
+                compAssetBarChartObj = new Chart(ctxBar, {
+                    type: 'bar',
+                    data: {
+                        labels: INV_CATEGORIES,
+                        datasets: [{
+                            label: 'Value ($)',
+                            data: dataVals,
+                            backgroundColor: '#6366f1',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { callback: val => '$' + val.toLocaleString() }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         }
 
         function updateProjections() {
@@ -1259,11 +1269,9 @@
             const months = years * 12;
 
             for (let m = 1; m <= months; m++) {
-                // Monthly interest earned on current balance
                 const monthlyInterest = currentBalance * (r / n);
                 totalInterestGain += monthlyInterest;
 
-                // Add interest and subtract monthly withdrawal
                 currentBalance = currentBalance + monthlyInterest - monthlyWithdrawal;
                 if (currentBalance < 0) currentBalance = 0;
 
@@ -1287,81 +1295,87 @@
             document.getElementById('projTotalContributions').innerText = formatCurrency(totalContributions);
             document.getElementById('projTotalInterest').innerText = formatCurrency(totalInterestGain);
 
-            const ctx = document.getElementById('projectionChart').getContext('2d');
-            if (projectionChartObj) projectionChartObj.destroy();
+            const projCanvas = document.getElementById('projectionChart');
+            if (projCanvas) {
+                const ctx = projCanvas.getContext('2d');
+                if (projectionChartObj) projectionChartObj.destroy();
 
-            projectionChartObj = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels,
-                    datasets: [
-                        {
-                            label: 'Projected Value (With Withdrawals) ($)',
-                            data: standardVals,
-                            borderColor: '#10b981',
-                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                            fill: true,
-                            tension: 0.3
-                        },
-                        {
-                            label: 'Principal Contributions ($)',
-                            data: contributionsVals,
-                            borderColor: '#6366f1',
-                            backgroundColor: 'transparent',
-                            borderDash: [5, 5],
-                            tension: 0.3
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { callback: val => '$' + val.toLocaleString() }
+                projectionChartObj = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [
+                            {
+                                label: 'Projected Value (With Withdrawals) ($)',
+                                data: standardVals,
+                                borderColor: '#10b981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Principal Contributions ($)',
+                                data: contributionsVals,
+                                borderColor: '#6366f1',
+                                backgroundColor: 'transparent',
+                                borderDash: [5, 5],
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { callback: val => '$' + val.toLocaleString() }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
 
-            const ctxW = document.getElementById('projectionWithdrawalsChart').getContext('2d');
-            if (projectionWithdrawalsChartObj) projectionWithdrawalsChartObj.destroy();
+            const projWCanvas = document.getElementById('projectionWithdrawalsChart');
+            if (projWCanvas) {
+                const ctxW = projWCanvas.getContext('2d');
+                if (projectionWithdrawalsChartObj) projectionWithdrawalsChartObj.destroy();
 
-            projectionWithdrawalsChartObj = new Chart(ctxW, {
-                type: 'line',
-                data: {
-                    labels,
-                    datasets: [
-                        {
-                            label: 'Cumulative Withdrawals Total ($)',
-                            data: cumulativeWithdrawalsVals,
-                            borderColor: '#f43f5e',
-                            backgroundColor: 'rgba(244, 63, 94, 0.05)',
-                            fill: true,
-                            tension: 0.3
-                        },
-                        {
-                            label: 'Compound Interest Gain ($)',
-                            data: cumulativeInterestVals,
-                            borderColor: '#f59e0b',
-                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
-                            fill: true,
-                            tension: 0.3
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { callback: val => '$' + val.toLocaleString() }
+                projectionWithdrawalsChartObj = new Chart(ctxW, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [
+                            {
+                                label: 'Cumulative Withdrawals Total ($)',
+                                data: cumulativeWithdrawalsVals,
+                                borderColor: '#f43f5e',
+                                backgroundColor: 'rgba(244, 63, 94, 0.05)',
+                                fill: true,
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Compound Interest Gain ($)',
+                                data: cumulativeInterestVals,
+                                borderColor: '#f59e0b',
+                                backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                                fill: true,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { callback: val => '$' + val.toLocaleString() }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         }
 
         function resetProjectionParams() {
@@ -1369,6 +1383,42 @@
             document.getElementById('projReturn').value = 5;
             document.getElementById('projMonthlyDeduction').value = 500;
             updateProjections();
+        }
+
+        /* DATA EXPORT & IMPORT BACKUP */
+        function exportFinancialData() {
+            const dataToExport = {
+                investments,
+                incomes,
+                expenses,
+                exportDate: new Date().toISOString()
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataToExport, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `financial_tracker_backup_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importFinancialData(event) {
+            const fileReader = new FileReader();
+            if (event.target.files && event.target.files[0]) {
+                fileReader.readAsText(event.target.files[0], "UTF-8");
+                fileReader.onload = function(e) {
+                    try {
+                        const parsed = JSON.parse(e.target.result);
+                        if (parsed.investments) investments = parsed.investments;
+                        if (parsed.incomes) incomes = parsed.incomes;
+                        if (parsed.expenses) expenses = parsed.expenses;
+                        initApp();
+                        alert("Financial backup successfully imported!");
+                    } catch (err) {
+                        alert("Invalid JSON backup file format.");
+                    }
+                };
+            }
         }
 
         /* MODAL CONTROLS */
@@ -1493,19 +1543,6 @@
         function deleteIncome(idx) {
             incomes.splice(idx, 1);
             initApp();
-        }
-
-        function openResetModal() {
-            document.getElementById('resetModal').classList.remove('hidden');
-        }
-        function closeResetModal() {
-            document.getElementById('resetModal').classList.add('hidden');
-        }
-        function confirmResetData() {
-            localStorage.removeItem('finpulse_investments');
-            localStorage.removeItem('finpulse_incomes');
-            localStorage.removeItem('finpulse_expenses');
-            location.reload();
         }
     </script>
 </body>
