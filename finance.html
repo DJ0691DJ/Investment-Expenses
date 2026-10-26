@@ -44,15 +44,15 @@
                 </div>
                 <div>
                     <h1 class="text-lg font-bold text-slate-900 leading-tight">Investment, Expense and Income Tracker</h1>
-                    <p class="text-xs text-indigo-900 font-bold">>DO THIS: Remove or replace the demo data and add your own data under each tab by clicking the add button</p>
+                    <p class="text-xs text-indigo-900 font-bold">>DO THIS: Remove or replace demo data and add your own inputs</p>
                 </div>
             </div>
-            <div class="data-backup-toolbar" style="margin: 15px 0; display: flex; gap: 10px; align-items: center;">
-                <button id="exportBtn" onclick="exportFinancialData()" style="background-color: transparent; color: black; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Save your input data as a local file</button>
-                <label for="importFile" style="background-color: transparent; color: black; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; display: inline-block; font-size: 0.8rem;">
+            <div class="flex items-center space-x-2">
+                <button id="exportBtn" onclick="exportFinancialData()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg transition">Save your input data as a local file</button>
+                <label for="importFile" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg cursor-pointer transition">
                     Import older backup data
                 </label>
-                <input type="file" id="importFile" accept=".json" onchange="importFinancialData(event)" style="display: none;">
+                <input type="file" id="importFile" accept=".json" onchange="importFinancialData(event)" class="hidden">
             </div>
         </div>
     </header>
@@ -99,7 +99,7 @@
                     <div>
                         <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Investments</p>
                         <h3 id="dashTotalInvestments" class="text-2xl font-bold text-slate-900 mt-1">$0.00</h3>
-                        <p class="text-xs text-emerald-600 mt-1 flex items-center"><i data-lucide="arrow-up-right" class="w-3 h-3 mr-1"></i>Incl. Bank Accounts & 401k</p>
+                        <p class="text-xs text-emerald-600 mt-1 flex items-center"><i data-lucide="arrow-up-right" class="w-3 h-3 mr-1"></i>All categories</p>
                     </div>
                     <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
                         <i data-lucide="wallet" class="w-6 h-6"></i>
@@ -121,7 +121,7 @@
                     <div>
                         <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Monthly Expenses</p>
                         <h3 id="dashTotalExpenses" class="text-2xl font-bold text-rose-600 mt-1">$0.00</h3>
-                        <p class="text-xs text-slate-500 mt-1">Total monthly burn rate</p>
+                        <p class="text-xs text-slate-500 mt-1">Total burn rate</p>
                     </div>
                     <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
                         <i data-lucide="credit-card" class="w-6 h-6"></i>
@@ -221,12 +221,74 @@
                 </div>
             </div>
 
+            <!-- Future Value Calculator & Slider Control with Investment Checkboxes -->
+            <div class="bg-gradient-to-r from-indigo-900 to-slate-900 rounded-2xl p-6 text-white shadow-md space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+                    <div>
+                        <div class="inline-flex items-center space-x-1.5 py-1 px-3 rounded-full bg-indigo-500/30 text-indigo-200 text-xs font-semibold uppercase tracking-wider mb-1">
+                            <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                            <span>Portfolio Growth & Drawdown Simulator</span>
+                        </div>
+                        <h3 class="text-lg font-bold">Future Value given Monthly Withdrawal</h3>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-indigo-200 uppercase tracking-wider font-medium">Estimated Future Value</div>
+                        <div id="invFutureValOutput" class="text-2xl font-bold text-emerald-400">$0.00</div>
+                    </div>
+                </div>
+
+                <!-- Sliders Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 uppercase mb-1">Monthly Withdrawal: <span id="invSliderValLabel" class="font-bold text-emerald-400">$500</span></label>
+                        <input type="range" id="invMonthlyWithdrawalSlider" min="0" max="10000" step="100" value="500" oninput="updateInvestmentFutureValue()" class="w-full accent-indigo-500 cursor-pointer">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span>$0</span>
+                            <span>$5,000</span>
+                            <span>$10,000</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 uppercase mb-1">Time Horizon: <span id="invYearsValLabel" class="font-bold text-indigo-300">5 Years</span></label>
+                        <input type="range" id="invYearsSlider" min="1" max="25" step="1" value="5" oninput="updateInvestmentFutureValue()" class="w-full accent-indigo-500 cursor-pointer">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span>1 Yr</span>
+                            <span>12 Yrs</span>
+                            <span>25 Yrs</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 uppercase mb-1">Expected Annual Return: <span id="invReturnValLabel" class="font-bold text-amber-400">6.0%</span></label>
+                        <input type="range" id="invReturnSlider" min="0" max="15" step="0.5" value="6" oninput="updateInvestmentFutureValue()" class="w-full accent-indigo-500 cursor-pointer">
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                            <span>0%</span>
+                            <span>7.5%</span>
+                            <span>15%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Investment Checkbox Selection Section -->
+                <div class="pt-3 border-t border-white/10 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-200">Include Specific Investments in Simulation:</span>
+                        <div class="space-x-3 text-xs">
+                            <button type="button" onclick="toggleAllSimulatorInvestments(true)" class="text-indigo-300 hover:text-white underline">Select All</button>
+                            <button type="button" onclick="toggleAllSimulatorInvestments(false)" class="text-indigo-300 hover:text-white underline">Deselect All</button>
+                        </div>
+                    </div>
+                    <div id="simulatorInvestmentCheckboxes" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-36 overflow-y-auto pr-2">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="investmentCategoryCards"></div>
 
             <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                 <div class="p-4 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div class="flex items-center space-x-2">
-                        <label class="text-xs font-medium text-slate-500 uppercase">Filter Category:</label>
+                        <label class="text-xs font-medium text-slate-500 uppercase">Filter Category - use this to change existing investments:</label>
                         <select id="filterInvCategory" onchange="renderInvestmentsTable()" class="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg px-3 py-1.5 focus:ring-indigo-500">
                             <option value="ALL">All 6 Categories</option>
                             <option value="Bank Accounts">Bank Accounts</option>
@@ -245,7 +307,7 @@
                         <thead class="bg-slate-50/75 border-b border-slate-200 text-slate-500 font-semibold text-xs uppercase tracking-wider">
                             <tr>
                                 <th class="p-4">Name & Notes</th>
-                                <th class="p-4">Category</th>
+                                <th class="p-4">Category (Click badge to edit)</th>
                                 <th class="p-4">Starting Principal</th>
                                 <th class="p-4">Current Value</th>
                                 <th class="p-4">Return (%)</th>
@@ -257,7 +319,11 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center py-3 text-xs text-slate-500 italic">Changes are saved automatically in your browser but you should periodically click the "Save your input data as a local file" link; this creates a small file on your hard drive with your changes so you don't lose them when clearing your browser cache. Clicking the "Import older backup data" link restores the data but overwrites any changes from after file creation.</div>
+
+            <!-- Updated Backup Disclaimer Statement (Cache -> History) -->
+            <div class="text-center py-4 px-4 bg-white rounded-2xl border border-slate-200 text-xs text-slate-600 leading-relaxed shadow-xs">
+                Changes are saved automatically in your browser but you should periodically click the "Save your input data as a local file" button; this creates a small file on your hard drive with your changes so you don't lose them when clearing your browser history. Clicking the "Import older backup data" button restores the changes but overwrites any changes from after file creation.
+            </div>
         </section>
 
         <!-- TAB 3: MONTHLY EXPENSES -->
@@ -265,7 +331,7 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h2 class="text-xl font-bold text-slate-900">Monthly Expense Tracker</h2>
-                    <p class="text-sm text-slate-500">Record and categorize recurring monthly expenses, including Housing, Cash Withdraw, Monthly Dues, Insurance, Credit Card, Hobbies, Taxes, Projects, Vacations, Medical, Pet, and Child.</p>
+                    <p class="text-sm text-slate-500">Record and categorize recurring monthly expenses.</p>
                 </div>
                 <button onclick="openExpenseModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-rose-600 text-white font-medium rounded-xl hover:bg-rose-700 shadow-sm transition">
                     <i data-lucide="plus" class="w-4 h-4"></i>
@@ -283,7 +349,7 @@
                     <h3 id="expTopCat" class="text-xl font-bold text-slate-900 mt-1">None</h3>
                 </div>
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Categories / Items</p>
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Items</p>
                     <h3 id="expTotalCount" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
                 </div>
             </div>
@@ -332,7 +398,11 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center py-3 text-xs text-slate-500 italic">Changes are saved automatically in your browser but you should periodically click the "Save your input data as a local file" button; this creates a small file on your hard drive with your changes so you don't lose them when clearing your browser cache. Clicking the "Import older backup data" button restores the changes but overwrites any changes from after file creation.</div>
+
+            <!-- Updated Backup Disclaimer Statement (Cache -> History) -->
+            <div class="text-center py-4 px-4 bg-white rounded-2xl border border-slate-200 text-xs text-slate-600 leading-relaxed shadow-xs">
+                Changes are saved automatically in your browser but you should periodically click the "Save your input data as a local file" button; this creates a small file on your hard drive with your changes so you don't lose them when clearing your browser history. Clicking the "Import older backup data" button restores the changes but overwrites any changes from after file creation.
+            </div>
         </section>
 
         <!-- TAB 4: INCOME SOURCES -->
@@ -340,7 +410,7 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h2 class="text-xl font-bold text-slate-900">Income Sources</h2>
-                    <p class="text-sm text-slate-500">Track regular monthly earnings, salary, social security, disability, and side-hustles.</p>
+                    <p class="text-sm text-slate-500">Track regular monthly earnings and salary streams.</p>
                 </div>
                 <button onclick="openIncomeModal()" class="inline-flex items-center justify-center space-x-2 px-4 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 shadow-sm transition">
                     <i data-lucide="plus" class="w-4 h-4"></i>
@@ -354,7 +424,7 @@
                     <h3 id="incTotalAmt" class="text-2xl font-bold text-emerald-600 mt-1">$0.00</h3>
                 </div>
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Active Income Streams</p>
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Active Streams</p>
                     <h3 id="incTotalCount" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
                 </div>
             </div>
@@ -377,7 +447,11 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center py-3 text-xs text-slate-500 italic">Changes are saved automatically in your browser but you should periodically click the "Save your input data as a local file" button; this creates a small file on your hard drive with your changes so you don't lose them when clearing your browser cache. Clicking the "Import older backup data" button restores the changes but overwrites any changes from after file creation.</div>
+
+            <!-- Updated Backup Disclaimer Statement (Cache -> History) -->
+            <div class="text-center py-4 px-4 bg-white rounded-2xl border border-slate-200 text-xs text-slate-600 leading-relaxed shadow-xs">
+                Changes are saved automatically in your browser but you should periodically click the "Save your input data as a local file" button; this creates a small file on your hard drive with your changes so you don't lose them when clearing your browser history. Clicking the "Import older backup data" button restores the changes but overwrites any changes from after file creation.
+            </div>
         </section>
 
         <!-- TAB 5: TRENDS & HISTORY -->
@@ -385,7 +459,7 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h2 class="text-xl font-bold text-slate-900">Trends & Historical Analytics</h2>
-                    <p class="text-sm text-slate-500">Monitor wealth growth velocity, monthly net gains/losses, individual investment trajectories, and historical summaries.</p>
+                    <p class="text-sm text-slate-500">Monitor wealth growth velocity and individual asset trajectories.</p>
                 </div>
                 <div class="flex items-center space-x-2">
                     <label class="text-xs font-medium text-slate-500 uppercase">Time Horizon:</label>
@@ -430,7 +504,6 @@
                 </div>
             </div>
 
-            <!-- Investments Dollar Increase Donut Chart -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-1">
                     <h4 class="text-base font-semibold text-slate-900">Investment Dollar Increase Breakdown (Start to Current)</h4>
@@ -442,7 +515,7 @@
                         </select>
                     </div>
                 </div>
-                <p class="text-xs text-slate-400 mb-4">Donut chart displaying the absolute dollar increase from each asset's starting principal.</p>
+                <p class="text-xs text-slate-400 mb-4">Bar chart displaying absolute dollar or percentage increase from each asset's starting principal.</p>
                 <div class="relative h-80 flex items-center justify-center">
                     <canvas id="trendInvestmentsChart"></canvas>
                 </div>
@@ -585,10 +658,10 @@
                 <input type="hidden" id="invEditIndex" value="-1">
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Asset Name</label>
-                    <input type="text" id="invName" required placeholder="e.g. Chase Bank Savings, Vanguard 401k, Apple Stock" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" id="invName" required placeholder="e.g. Chase Bank Savings, Apple Stock" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Investment Category (Exactly 6 Classes)</label>
+                    <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Investment Category</label>
                     <select id="invCategory" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
                         <option value="Bank Accounts">Bank Accounts</option>
                         <option value="Stocks/Equities">Stocks/Equities</option>
@@ -638,7 +711,7 @@
                 <input type="hidden" id="expEditIndex" value="-1">
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Expense Title</label>
-                    <input type="text" id="expTitle" required placeholder="e.g. Restaurant Dinner, Weekend Dining" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                    <input type="text" id="expTitle" required placeholder="e.g. Restaurant Dinner" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Category</label>
@@ -693,7 +766,7 @@
                 <input type="hidden" id="incEditIndex" value="-1">
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Income Source Title</label>
-                    <input type="text" id="incTitle" required placeholder="e.g. Primary Salary, Social Security" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                    <input type="text" id="incTitle" required placeholder="e.g. Primary Salary" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Category</label>
@@ -718,21 +791,6 @@
         </div>
     </div>
 
-    <!-- RESET MODAL -->
-    <div id="resetModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-100 space-y-4">
-            <div class="flex items-center space-x-3 text-amber-600">
-                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
-                <h3 class="text-lg font-bold text-slate-900">Reset Demo Data?</h3>
-            </div>
-            <p class="text-sm text-slate-500">This will restore sample data with the 6 required investment categories, monthly expenses, and income sources.</p>
-            <div class="flex justify-end space-x-3 pt-2">
-                <button onclick="closeResetModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl">Cancel</button>
-                <button onclick="confirmResetData()" class="px-4 py-2 bg-amber-600 text-white text-sm font-medium rounded-xl">Reset Data</button>
-            </div>
-        </div>
-    </div>
-
     <!-- APPLICATION LOGIC & CHARTS -->
     <script>
         const INV_CATEGORIES = [
@@ -745,19 +803,16 @@
         ];
 
         let investments = JSON.parse(localStorage.getItem('finpulse_investments')) || [
-            { name: 'Example bank entry', category: 'Bank Accounts', startValue: 20000, value: 24000, date: '2025-01-01', notes: 'Operating cash' },
-            { name: 'Example stock entry', category: 'Stocks/Equities', startValue: 50000, value: 68000, date: '2024-06-10', notes: 'Brokerage account' }
+            { name: 'Chase Savings', category: 'Bank Accounts', startValue: 20000, value: 24000, date: '2025-01-01', notes: 'Operating cash' },
+            { name: 'Vanguard Brokerage', category: 'Stocks/Equities', startValue: 50000, value: 68000, date: '2024-06-10', notes: 'Index funds' }
         ];
 
         let incomes = JSON.parse(localStorage.getItem('finpulse_incomes')) || [
-            { title: 'Example Salary', category: 'Salary', amount: 8500 },
-            { title: 'Example Social Security', category: 'Social Security', amount: 1800 },
-            { title: 'Example 401K', category: 'Retirement/401k', amount: 1200 }
+            { title: 'Primary Salary', category: 'Salary', amount: 8500 }
         ];
 
         let expenses = JSON.parse(localStorage.getItem('finpulse_expenses')) || [
-            { title: 'Example rent or mortgage amount ', category: 'Housing', amount: 2400, notes: 'Monthly lease' },
-            { title: 'Example Groceries', category: 'Food', amount: 750, notes: 'Weekly markets' }
+            { title: 'Apartment Rent', category: 'Housing', amount: 2400, notes: 'Monthly lease' }
         ];
 
         let categoryDonutChartObj = null;
@@ -789,6 +844,7 @@
             renderIncome();
             renderTrendsCharts();
             updateProjections();
+            updateInvestmentFutureValue();
             renderComparisonAnalytics();
             lucide.createIcons();
         }
@@ -821,6 +877,73 @@
 
         function getTotalExpenses() {
             return expenses.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+        }
+
+        function getSelectedSimulatorInitialBalance() {
+            const checkboxes = document.querySelectorAll('.simulator-inv-checkbox');
+            if (checkboxes.length === 0) return getTotalInvestments();
+            
+            let sum = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const idx = parseInt(cb.getAttribute('data-index'));
+                    if (investments[idx]) {
+                        sum += Number(investments[idx].value || 0);
+                    }
+                }
+            });
+            return sum;
+        }
+
+        function updateInvestmentFutureValue() {
+            const withdrawalSlider = document.getElementById('invMonthlyWithdrawalSlider');
+            const yearsSlider = document.getElementById('invYearsSlider');
+            const returnSlider = document.getElementById('invReturnSlider');
+
+            if (!withdrawalSlider || !yearsSlider || !returnSlider) return;
+
+            const monthlyWithdrawal = parseFloat(withdrawalSlider.value) || 0;
+            const years = parseInt(yearsSlider.value) || 5;
+            const annualRate = parseFloat(returnSlider.value) / 100 || 0.06;
+
+            document.getElementById('invSliderValLabel').innerText = formatCurrency(monthlyWithdrawal);
+            document.getElementById('invYearsValLabel').innerText = `${years} Year${years > 1 ? 's' : ''}`;
+            document.getElementById('invReturnValLabel').innerText = (annualRate * 100).toFixed(1) + '%';
+
+            let currentBalance = getSelectedSimulatorInitialBalance();
+            const monthlyRate = annualRate / 12;
+            const totalMonths = years * 12;
+
+            for (let m = 1; m <= totalMonths; m++) {
+                const interestEarned = currentBalance * monthlyRate;
+                currentBalance = currentBalance + interestEarned - monthlyWithdrawal;
+                if (currentBalance < 0) {
+                    currentBalance = 0;
+                    break;
+                }
+            }
+
+            document.getElementById('invFutureValOutput').innerText = formatCurrency(Math.max(0, currentBalance));
+        }
+
+        function renderSimulatorCheckboxes() {
+            const container = document.getElementById('simulatorInvestmentCheckboxes');
+            if (!container) return;
+
+            container.innerHTML = investments.map((inv, idx) => `
+                <label class="flex items-center space-x-2 bg-indigo-950/50 hover:bg-indigo-950/80 p-2 rounded-xl border border-white/10 cursor-pointer transition">
+                    <input type="checkbox" checked data-index="${idx}" onchange="updateInvestmentFutureValue()" class="simulator-inv-checkbox accent-indigo-500 w-4 h-4 rounded">
+                    <div class="text-xs truncate flex-1">
+                        <span class="font-bold text-white">${inv.name}</span>
+                        <span class="text-indigo-300 ml-1">(${formatCurrency(inv.value)})</span>
+                    </div>
+                </label>
+            `).join('') || `<div class="text-xs text-indigo-300 italic col-span-full">No investments available for simulation</div>`;
+        }
+
+        function toggleAllSimulatorInvestments(checked) {
+            document.querySelectorAll('.simulator-inv-checkbox').forEach(cb => cb.checked = checked);
+            updateInvestmentFutureValue();
         }
 
         function renderDashboard() {
@@ -950,11 +1073,15 @@
                     </div>
                 `;
             }).join('');
+
+            renderSimulatorCheckboxes();
+            updateInvestmentFutureValue();
             renderInvestmentsTable();
         }
 
         function renderInvestmentsTable() {
-            const filter = document.getElementById('filterInvCategory').value;
+            const filterEl = document.getElementById('filterInvCategory');
+            const filter = filterEl ? filterEl.value : 'ALL';
             const filtered = filter === 'ALL' ? [...investments] : investments.filter(i => i.category === filter);
 
             filtered.sort((a, b) => Number(b.value || 0) - Number(a.value || 0));
@@ -963,6 +1090,7 @@
             const tbody = document.getElementById('investmentsTableBody');
 
             tbody.innerHTML = filtered.map((inv) => {
+                const realIdx = investments.indexOf(inv);
                 const startVal = Number(inv.startValue || inv.value || 0);
                 const currVal = Number(inv.value || 0);
                 const diff = currVal - startVal;
@@ -975,7 +1103,13 @@
                             <div class="font-bold text-slate-900">${inv.name}</div>
                             <div class="text-xs text-slate-400 truncate max-w-xs">${inv.notes || 'No notes'}</div>
                         </td>
-                        <td class="p-4"><span class="px-2.5 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-lg font-medium">${inv.category}</span></td>
+                        <td class="p-4">
+                            <div class="inline-block cursor-pointer" title="Click to change category">
+                                <select onchange="updateInvestmentCategoryInline(${realIdx}, this.value)" class="px-2.5 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-lg font-medium border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
+                                    ${INV_CATEGORIES.map(cat => `<option value="${cat}" ${inv.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                                </select>
+                            </div>
+                        </td>
                         <td class="p-4 text-slate-600 font-medium">${formatCurrency(startVal)}</td>
                         <td class="p-4 font-bold text-slate-900">${formatCurrency(currVal)}</td>
                         <td class="p-4">
@@ -986,13 +1120,20 @@
                         </td>
                         <td class="p-4 text-slate-500 text-xs">${inv.date || 'N/A'}</td>
                         <td class="p-4 text-right space-x-2">
-                            <button onclick="openInvestmentModal(${investments.indexOf(inv)})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                            <button onclick="deleteInvestment(${investments.indexOf(inv)})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                            <button onclick="openInvestmentModal(${realIdx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                            <button onclick="deleteInvestment(${realIdx})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                         </td>
                     </tr>
                 `;
             }).join('') || `<tr><td colspan="7" class="p-6 text-center text-slate-400">No investments found</td></tr>`;
             lucide.createIcons();
+        }
+
+        function updateInvestmentCategoryInline(idx, newCategory) {
+            if (investments[idx]) {
+                investments[idx].category = newCategory;
+                initApp();
+            }
         }
 
         function renderExpenses() {
@@ -1016,7 +1157,8 @@
             }
             document.getElementById('expTopCat').innerText = topCat !== 'None' ? `${topCat} (${formatCurrency(maxAmt)})` : 'None';
 
-            const filter = document.getElementById('filterExpCategory').value;
+            const filterEl = document.getElementById('filterExpCategory');
+            const filter = filterEl ? filterEl.value : 'ALL';
             const filtered = filter === 'ALL' ? [...expenses] : expenses.filter(e => e.category === filter);
 
             document.getElementById('expCountText').innerText = `Showing ${filtered.length} expense(s)`;
@@ -1535,19 +1677,6 @@
         function deleteIncome(idx) {
             incomes.splice(idx, 1);
             initApp();
-        }
-
-        function openResetModal() {
-            document.getElementById('resetModal').classList.remove('hidden');
-        }
-        function closeResetModal() {
-            document.getElementById('resetModal').classList.add('hidden');
-        }
-        function confirmResetData() {
-            localStorage.removeItem('finpulse_investments');
-            localStorage.removeItem('finpulse_incomes');
-            localStorage.removeItem('finpulse_expenses');
-            location.reload();
         }
     </script>
 </body>
