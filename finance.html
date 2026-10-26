@@ -803,16 +803,16 @@
         ];
 
         let investments = JSON.parse(localStorage.getItem('finpulse_investments')) || [
-            { name: 'Chase Savings', category: 'Bank Accounts', startValue: 20000, value: 24000, date: '2025-01-01', notes: 'Operating cash' },
-            { name: 'Vanguard Brokerage', category: 'Stocks/Equities', startValue: 50000, value: 68000, date: '2024-06-10', notes: 'Index funds' }
+            { name: 'Example Chase Savings', category: 'Bank Accounts', startValue: 20000, value: 24000, date: '2025-01-01', notes: 'Operating cash' },
+            { name: 'Example Vanguard Brokerage', category: 'Stocks/Equities', startValue: 50000, value: 68000, date: '2024-06-10', notes: 'Index funds' }
         ];
 
         let incomes = JSON.parse(localStorage.getItem('finpulse_incomes')) || [
-            { title: 'Primary Salary', category: 'Salary', amount: 8500 }
+            { title: 'Example Primary Salary', category: 'Salary', amount: 8500 }
         ];
 
         let expenses = JSON.parse(localStorage.getItem('finpulse_expenses')) || [
-            { title: 'Apartment Rent', category: 'Housing', amount: 2400, notes: 'Monthly lease' }
+            { title: 'Example Apartment Rent', category: 'Housing', amount: 2400, notes: 'Monthly lease' }
         ];
 
         let categoryDonutChartObj = null;
