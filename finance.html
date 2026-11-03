@@ -877,11 +877,13 @@
         ]);
 
         let incomes = readStoredArray('finpulse_incomes', [
-            { title: 'Example Primary Salary', category: 'Salary', amount: 8500 }
+            { title: 'Example Primary Salary', category: 'Salary', amount: 8500 },
+            { title: 'Example Social Security', category: 'Social Security', amount: 2200 }
         ]);
 
         let expenses = readStoredArray('finpulse_expenses', [
-            { title: 'Example Apartment Rent', category: 'Housing', amount: 2400, notes: 'Monthly lease' }
+            { title: 'Example Apartment Rent', category: 'Housing', amount: 2400, notes: 'Monthly lease' },
+            { title: 'Example Groceries', category: 'Food', amount: 900, notes: 'Monthly groceries' }
         ]);
 
         let categoryDonutChartObj = null;
