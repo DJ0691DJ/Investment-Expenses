@@ -3,7 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investment, Expense and Income Tracker</title>
+    <title>Personal Finance Tracker | Investments, Budget & Expenses | BGTF</title>
+    <meta name="description" content="Track investments, portfolio value, income, monthly expenses, cash flow, net worth and financial projections in one browser-based personal finance dashboard.">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <link rel="canonical" href="https://www.bgtf.net/finance.html">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="keywords" content="personal finance tracker, investment tracker, budget tracker, expense tracker, income tracker, portfolio tracker, net worth tracker, financial dashboard, monthly expenses, cash flow tracker, retirement projections, investment portfolio, personal budgeting tool">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BGTF Personal Finance Tracker">
+    <meta property="og:title" content="Personal Finance Tracker | Investments, Budget & Expenses">
+    <meta property="og:description" content="Organize investments, income, expenses, cash flow and financial projections in one browser-based dashboard.">
+    <meta property="og:url" content="https://www.bgtf.net/finance.html">
+    <meta name="twitter:card" content="summary">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "BGTF Personal Finance Tracker",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any device with a modern web browser",
+      "browserRequirements": "Requires JavaScript and a modern web browser",
+      "url": "https://www.bgtf.net/finance.html",
+      "description": "A browser-based personal finance dashboard for tracking investments, portfolio values, income, monthly expenses, cash flow, net worth and financial projections.",
+      "featureList": [
+        "Investment portfolio tracking",
+        "Monthly income and expense tracking",
+        "Cash flow and financial comparisons",
+        "Investment trends and history",
+        "Net worth and future projections",
+        "Local JSON backup and restore"
+      ],
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+      "isPartOf": {"@type": "WebSite", "name": "BGTF", "url": "https://www.bgtf.net/"}
+    }
+    </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -25,9 +59,9 @@
         }
     </script>
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -43,8 +77,8 @@
                     <i data-lucide="trending-up" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Investment, Expense and Income Tracker</h1>
-                    <p class="text-xs text-indigo-900 font-bold">&gt;DO THIS: Change, remove or replace example data and add your own inputs</p>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Personal Finance & Investment Tracker</h1>
+                    <p class="text-xs text-indigo-900 font-bold">Track your investments, income, expenses and financial outlook</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2">
@@ -91,6 +125,21 @@
     </nav>
 
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-y-auto">
+
+        <!-- Search-friendly introduction describing the actual tools on this page -->
+        <section class="mb-8 rounded-2xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-sm" aria-labelledby="finance-intro-title">
+            <h2 id="finance-intro-title" class="text-2xl font-bold text-slate-900 mb-2">Personal Finance Dashboard: Investments, Budget, Income & Expenses</h2>
+            <p class="text-sm sm:text-base leading-relaxed text-slate-600">Use this personal finance tracker to organize your investment portfolio, monitor bank and retirement accounts, record income sources, manage monthly expenses, compare cash flow, review financial trends and estimate future savings. The dashboard brings together investment tracking, budget planning, expense tracking, income tracking, net-worth monitoring and financial projections in one convenient browser-based tool.</p>
+            <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm text-slate-700">
+                <li><span class="font-semibold">Investment tracker:</span> organize assets by category</li>
+                <li><span class="font-semibold">Budget and expense tracker:</span> monitor monthly spending</li>
+                <li><span class="font-semibold">Income tracker:</span> record recurring income sources</li>
+                <li><span class="font-semibold">Portfolio and net worth:</span> review asset totals</li>
+                <li><span class="font-semibold">Cash flow analytics:</span> compare income and expenses</li>
+                <li><span class="font-semibold">Financial projections:</span> explore future scenarios</li>
+            </ul>
+            <p class="mt-4 text-xs text-slate-500">Your tracker data is stored in this browser on this device. It is not a bank connection or a substitute for professional financial advice. Export a backup regularly if you want to preserve your entries.</p>
+        </section>
 
         <!-- TAB 1: DASHBOARD -->
         <section id="tab-dashboard" class="space-y-6">
@@ -658,7 +707,7 @@
                 <input type="hidden" id="invEditIndex" value="-1">
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Asset Name</label>
-                    <input type="text" id="invName" required placeholder="e.g. Chase Bank Savings, Apple Stock" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" id="invName" maxlength="120" required placeholder="e.g. Chase Bank Savings, Apple Stock" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Investment Category</label>
@@ -687,7 +736,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Notes / Description</label>
-                    <textarea id="invNotes" rows="2" placeholder="Optional details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm"></textarea>
+                    <textarea id="invNotes" maxlength="1000" rows="2" placeholder="Optional details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm"></textarea>
                 </div>
 
                 <div class="flex justify-end space-x-3 pt-2">
@@ -711,7 +760,7 @@
                 <input type="hidden" id="expEditIndex" value="-1">
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Expense Title</label>
-                    <input type="text" id="expTitle" required placeholder="e.g. Restaurant Dinner" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                    <input type="text" id="expTitle" maxlength="120" required placeholder="e.g. Restaurant Dinner" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Category</label>
@@ -743,7 +792,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Notes / Description</label>
-                    <textarea id="expNotes" rows="2" placeholder="Optional details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm"></textarea>
+                    <textarea id="expNotes" maxlength="1000" rows="2" placeholder="Optional details..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm"></textarea>
                 </div>
                 <div class="flex justify-end space-x-3 pt-2">
                     <button type="button" onclick="closeExpenseModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-50">Cancel</button>
@@ -766,7 +815,7 @@
                 <input type="hidden" id="incEditIndex" value="-1">
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Income Source Title</label>
-                    <input type="text" id="incTitle" required placeholder="e.g. Primary Salary" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
+                    <input type="text" id="incTitle" maxlength="120" required placeholder="e.g. Primary Salary" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-slate-700 uppercase mb-1">Category</label>
@@ -802,18 +851,38 @@
             'Stocks/Equities'
         ];
 
-        let investments = JSON.parse(localStorage.getItem('finpulse_investments')) || [
+        // Escape all text that originated in localStorage or user-entered fields before
+        // placing it in an HTML template. Never interpolate raw user data into innerHTML.
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[char]);
+        }
+
+        function readStoredArray(key, fallback) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return fallback;
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : fallback;
+            } catch (error) {
+                console.warn('Stored tracker data for ' + key + ' could not be read; using the example data.');
+                return fallback;
+            }
+        }
+
+        let investments = readStoredArray('finpulse_investments', [
             { name: 'Example Chase Savings', category: 'Bank Accounts', startValue: 20000, value: 24000, date: '2025-01-01', notes: 'Operating cash' },
             { name: 'Example Vanguard Brokerage', category: 'Stocks/Equities', startValue: 50000, value: 68000, date: '2024-06-10', notes: 'Index funds' }
-        ];
+        ]);
 
-        let incomes = JSON.parse(localStorage.getItem('finpulse_incomes')) || [
+        let incomes = readStoredArray('finpulse_incomes', [
             { title: 'Example Primary Salary', category: 'Salary', amount: 8500 }
-        ];
+        ]);
 
-        let expenses = JSON.parse(localStorage.getItem('finpulse_expenses')) || [
+        let expenses = readStoredArray('finpulse_expenses', [
             { title: 'Example Apartment Rent', category: 'Housing', amount: 2400, notes: 'Monthly lease' }
-        ];
+        ]);
 
         let categoryDonutChartObj = null;
         let incomeVsExpenseDollarChartObj = null;
@@ -934,7 +1003,7 @@
                 <label class="flex items-center space-x-2 bg-indigo-950/50 hover:bg-indigo-950/80 p-2 rounded-xl border border-white/10 cursor-pointer transition">
                     <input type="checkbox" checked data-index="${idx}" onchange="updateInvestmentFutureValue()" class="simulator-inv-checkbox accent-indigo-500 w-4 h-4 rounded">
                     <div class="text-xs truncate flex-1">
-                        <span class="font-bold text-white">${inv.name}</span>
+                        <span class="font-bold text-white">${escapeHTML(inv.name)}</span>
                         <span class="text-indigo-300 ml-1">(${formatCurrency(inv.value)})</span>
                     </div>
                 </label>
@@ -975,8 +1044,8 @@
             const recentInvBody = document.getElementById('dashRecentInvestments');
             recentInvBody.innerHTML = investments.slice(-4).reverse().map(inv => `
                 <tr>
-                    <td class="p-3 font-medium text-slate-900">${inv.name}</td>
-                    <td class="p-3"><span class="px-2 py-0.5 text-xs bg-indigo-50 text-indigo-700 rounded-md font-medium">${inv.category}</span></td>
+                    <td class="p-3 font-medium text-slate-900">${escapeHTML(inv.name)}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 text-xs bg-indigo-50 text-indigo-700 rounded-md font-medium">${escapeHTML(inv.category)}</span></td>
                     <td class="p-3 text-right font-bold text-slate-900">${formatCurrency(inv.value)}</td>
                 </tr>
             `).join('') || `<tr><td colspan="3" class="p-4 text-center text-slate-400">No investments added yet</td></tr>`;
@@ -984,8 +1053,8 @@
             const recentExpBody = document.getElementById('dashRecentExpenses');
             recentExpBody.innerHTML = expenses.slice(-4).reverse().map(exp => `
                 <tr>
-                    <td class="p-3 font-medium text-slate-900">${exp.title}</td>
-                    <td class="p-3"><span class="px-2 py-0.5 text-xs bg-rose-50 text-rose-700 rounded-md font-medium">${exp.category}</span></td>
+                    <td class="p-3 font-medium text-slate-900">${escapeHTML(exp.title)}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 text-xs bg-rose-50 text-rose-700 rounded-md font-medium">${escapeHTML(exp.category)}</span></td>
                     <td class="p-3 text-right font-bold text-rose-600">${formatCurrency(exp.amount)}</td>
                 </tr>
             `).join('') || `<tr><td colspan="3" class="p-4 text-center text-slate-400">No expenses added yet</td></tr>`;
@@ -1100,8 +1169,8 @@
                 return `
                     <tr class="hover:bg-slate-50/55 transition">
                         <td class="p-4">
-                            <div class="font-bold text-slate-900">${inv.name}</div>
-                            <div class="text-xs text-slate-400 truncate max-w-xs">${inv.notes || 'No notes'}</div>
+                            <div class="font-bold text-slate-900">${escapeHTML(inv.name)}</div>
+                            <div class="text-xs text-slate-400 truncate max-w-xs">${escapeHTML(inv.notes || 'No notes')}</div>
                         </td>
                         <td class="p-4">
                             <div class="inline-block cursor-pointer" title="Click to change category">
@@ -1118,7 +1187,7 @@
                                 <span>${isPos ? '+' : ''}${pct.toFixed(1)}%</span>
                             </span>
                         </td>
-                        <td class="p-4 text-slate-500 text-xs">${inv.date || 'N/A'}</td>
+                        <td class="p-4 text-slate-500 text-xs">${escapeHTML(inv.date || 'N/A')}</td>
                         <td class="p-4 text-right space-x-2">
                             <button onclick="openInvestmentModal(${realIdx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
                             <button onclick="deleteInvestment(${realIdx})" class="text-slate-400 hover:text-rose-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
@@ -1169,10 +1238,10 @@
                 return `
                     <tr class="hover:bg-slate-50/55 transition">
                         <td class="p-4">
-                            <div class="font-bold text-slate-900">${exp.title}</div>
-                            <div class="text-xs text-slate-400">${exp.notes || ''}</div>
+                            <div class="font-bold text-slate-900">${escapeHTML(exp.title)}</div>
+                            <div class="text-xs text-slate-400">${escapeHTML(exp.notes || '')}</div>
                         </td>
-                        <td class="p-4"><span class="px-2.5 py-1 text-xs bg-rose-50 text-rose-700 rounded-lg font-medium">${exp.category}</span></td>
+                        <td class="p-4"><span class="px-2.5 py-1 text-xs bg-rose-50 text-rose-700 rounded-lg font-medium">${escapeHTML(exp.category)}</span></td>
                         <td class="p-4 font-bold text-rose-600">${formatCurrency(exp.amount)}</td>
                         <td class="p-4 text-right space-x-2">
                             <button onclick="openExpenseModal(${realIdx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
@@ -1194,8 +1263,8 @@
             const tbody = document.getElementById('incomeTableBody');
             tbody.innerHTML = incomes.map((inc, idx) => `
                 <tr class="hover:bg-slate-50/55 transition">
-                    <td class="p-4 font-bold text-slate-900">${inc.title}</td>
-                    <td class="p-4"><span class="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-700 rounded-lg font-medium">${inc.category}</span></td>
+                    <td class="p-4 font-bold text-slate-900">${escapeHTML(inc.title)}</td>
+                    <td class="p-4"><span class="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-700 rounded-lg font-medium">${escapeHTML(inc.category)}</span></td>
                     <td class="p-4 font-bold text-emerald-600">${formatCurrency(inc.amount)}</td>
                     <td class="p-4 text-right space-x-2">
                         <button onclick="openIncomeModal(${idx})" class="text-slate-400 hover:text-indigo-600 p-1"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
@@ -1515,46 +1584,6 @@
             updateProjections();
         }
 
-        /* BACKUP & RESTORE FUNCTIONS */
-        function exportFinancialData() {
-            const data = {
-                investments: investments,
-                incomes: incomes,
-                expenses: expenses,
-                exportDate: new Date().toISOString()
-            };
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `financial_tracker_backup_${new Date().toISOString().split('T')[0]}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-
-        function importFinancialData(event) {
-            const fileReader = new FileReader();
-            if (event.target.files[0]) {
-                fileReader.readAsText(event.target.files[0], "UTF-8");
-                fileReader.onload = function(e) {
-                    try {
-                        const parsedData = JSON.parse(e.target.result);
-                        if (parsedData.investments && parsedData.incomes && parsedData.expenses) {
-                            investments = parsedData.investments;
-                            incomes = parsedData.incomes;
-                            expenses = parsedData.expenses;
-                            initApp();
-                            alert("Backup data successfully imported!");
-                        } else {
-                            alert("Invalid backup file structure.");
-                        }
-                    } catch (error) {
-                        alert("Error reading JSON file.");
-                    }
-                };
-            }
-        }
-
         /* MODAL CONTROLS */
         function openInvestmentModal(editIdx = -1) {
             document.getElementById('investmentModal').classList.remove('hidden');
@@ -1679,5 +1708,6 @@
             initApp();
         }
     </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
